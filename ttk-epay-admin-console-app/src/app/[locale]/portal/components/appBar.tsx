@@ -2,17 +2,29 @@
 import * as React from "react";
 import Image from "next/image";
 import { useState } from "react";
-import { Button, Col, Drawer, Form, Row, Select } from "antd";
+import { Col, Drawer, Row } from "antd";
 import { Header } from "antd/es/layout/layout";
 import LocaleSwitcher from "@/app/[locale]/components/localeSwitcher";
-import {  ListIcon } from "@phosphor-icons/react";
+import { GearIcon, ListIcon } from "@phosphor-icons/react";
 import { MainSideBarMobile } from "./sideBar";
 import Link from "next/link";
-import { useI18n } from "../../../../../locales/client";
+import { useAppDispatch } from "@/lib/hook";
+import { removeRegistration } from "@/lib/features/registration/registrationSlice";
+import { useRouter } from "next/navigation";
+
+
+
 
 export function AppAppBarDesktop() {
-  const [theme] = useState("dark");
-  const t = useI18n();
+  const dispatch = useAppDispatch();
+  const router = useRouter()
+
+  const settingClick = () => {
+    dispatch(removeRegistration())
+    router.push('/')
+
+  }
+
   return (
     <>
       <Header
@@ -23,7 +35,7 @@ export function AppAppBarDesktop() {
           justifyContent: "center",
           lineHeight: "0px",
           height: "70px",
-          
+
         }}
       >
         <Row align="middle" justify="space-between" style={{ width: "100%" }}>
@@ -55,7 +67,8 @@ export function AppAppBarDesktop() {
                   alignItems: "center",
                 }}
               >
-                <LocaleSwitcher  />
+                <LocaleSwitcher />
+                <GearIcon size={24} style={{ cursor: "pointer"}} onClick={settingClick} />
               </Row>
             </Col>
           </Row>
@@ -67,7 +80,14 @@ export function AppAppBarDesktop() {
 
 export function AppAppBarMobile() {
   const [theme] = useState("dark");
-  const appBarColor = theme == "dark" ? "#2c82d4" : "#eda879";
+  const dispatch = useAppDispatch();
+  const router = useRouter()
+
+  const settingClick = () => {
+    dispatch(removeRegistration())
+    router.push('/')
+
+  }
 
   const [open, setOpen] = useState(false);
 
@@ -97,7 +117,7 @@ export function AppAppBarMobile() {
         <Row align="middle" justify="space-between" style={{ width: "100%" }}>
           <Col style={{ flexGrow: 1 }}>
             <Link href="/portal">
-            <Image
+              <Image
                 src="/images/deploily-logo.png"
                 width={180}
                 height={44}
@@ -125,6 +145,7 @@ export function AppAppBarMobile() {
                 }}
               >
                 <LocaleSwitcher />
+                <GearIcon size={24} style={{ cursor: "pointer"}} onClick={settingClick} />
                 <ListIcon size={28} style={{ color: "black" }} onClick={showDrawer} />
               </Row>
             </Col>

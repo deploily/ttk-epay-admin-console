@@ -6,15 +6,23 @@ import { FloppyDiskIcon, QuestionIcon } from '@phosphor-icons/react';
 import Link from 'next/link';
 import { useScopedI18n } from '../../../../locales/client';
 import LocaleSwitcher from './localeSwitcher';
+import { useAppDispatch } from '@/lib/hook';
+import { setRegistration } from '@/lib/features/registration/registrationSlice';
+import { useRouter } from 'next/navigation';
 
 
-export default function ConnectionComponent() {
-    const t = useScopedI18n('connectionComponant')
+export default function RegistrationComponent() {
+    const t = useScopedI18n('registration')
     const [form] = Form.useForm();
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
-    const onFinish = (values: any) => {
-        console.log(values);
-        if (values) form.resetFields();
+    const onFinish = async(values: any) => {
+        await dispatch(setRegistration(values))
+        // if (values) form.resetFields();
+        await router.push("/portal/invoice")
+
+
     };
 
     return (

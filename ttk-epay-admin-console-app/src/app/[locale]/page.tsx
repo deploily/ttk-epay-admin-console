@@ -1,11 +1,11 @@
-import ConnectionComponent from "./components/connectionComponent";
+import RegistrationComponent from "./components/registrationComponent";
 
 
 export default function LandingPage() {
   return (
     <main>
 
-      <ConnectionComponent />
+      <RegistrationComponent />
     </main>
   );
 }

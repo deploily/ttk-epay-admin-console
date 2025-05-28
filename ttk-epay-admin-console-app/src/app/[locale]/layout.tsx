@@ -5,6 +5,7 @@ import { ConfigProvider } from 'antd';
 import { theme } from "@/styles/theme"
 import 'antd/dist/reset.css';
 import { I18nProviderClient } from "../../../locales/client";
+import { StoreProvider } from "../storeProvider";
 
 
 
@@ -19,13 +20,15 @@ export default async function RootLayout({ params, children }: { params: Promise
   return (
     <html lang={locale}>
       <body suppressHydrationWarning={true}>
-        <I18nProviderClient locale={locale}>
-          <AntdRegistry>
-            <ConfigProvider theme={theme} >
-              {children}
-            </ConfigProvider>
-          </AntdRegistry>
-        </I18nProviderClient>
+        <StoreProvider>
+          <I18nProviderClient locale={locale}>
+            <AntdRegistry>
+              <ConfigProvider theme={theme} >
+                {children}
+              </ConfigProvider>
+            </AntdRegistry>
+          </I18nProviderClient>
+        </StoreProvider>
       </body>
     </html>
   );

@@ -15,7 +15,7 @@ export function MainSideBar() {
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
-  const scopedSidebar = useScopedI18n("connectionComponant");
+  const scopedSidebar = useScopedI18n("sideBar");
   const pathName = usePathname();
 
   const parentKey = menuItems(scopedSidebar)?.find(item => {
@@ -23,14 +23,6 @@ export function MainSideBar() {
   }
   )?.key;
 
-  const items = [
-    {
-      key: "profile",
-      label: "profile",
-      icon: <User size={24} />,
-    },
-
-  ]
 
   return (
     <Sider
@@ -50,7 +42,7 @@ export function MainSideBar() {
         defaultSelectedKeys={["1"]}
         mode="inline"
         items={menuItems(scopedSidebar)}
-        style={{ flexGrow: 1 , background: "none", borderInlineEnd:"none"}}
+        style={{ flexGrow: 1, background: "none", borderInlineEnd: "none" }}
         selectable
         selectedKeys={[`${parentKey}`]}
       />
@@ -71,33 +63,43 @@ export function MainSideBar() {
 
       >
 
-        <Space onClick={toggleCollapsed}>
+        <div
+          onClick={toggleCollapsed}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            cursor: "pointer",
+            height: 40, // fixe la hauteur pour éviter les sauts visuels
+          }}
+        >
           {collapsed ? (
             <ArrowRightIcon size={24} color="#7D7D7D" />
           ) : (
-            <>
+            <div style={{ display: "flex", alignItems: "center" }}>
               <ArrowLeftIcon size={24} color="#7D7D7D" />
-              <div style={{display:"flex", alignItems:"center", paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>
-                {"collapse"}
+              <div style={{ paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>
+                {"Collapse"}
               </div>
-            </>
+            </div>
           )}
-        </Space>
+        </div>
 
-        
+
+
+
       </div>
     </Sider>
   );
 }
 
 export function MainSideBarMobile() {
-  const scopedSidebar = useScopedI18n("connectionComponant");
+  const scopedSidebar = useScopedI18n("sideBar");
   const t = useI18n();
- 
+
 
   return (
     <>
-      
+
       <Menu
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
@@ -106,7 +108,7 @@ export function MainSideBarMobile() {
         style={{ flexGrow: 1 }}
       />
 
-      
+
     </>
   );
 }

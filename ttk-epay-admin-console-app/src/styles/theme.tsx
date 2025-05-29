@@ -1,5 +1,8 @@
 export const theme = {
     token: {
+      colorWhite: "white",
+      colorBlack: "black",
+      blueOverlay:"rgba(22, 119, 255, 0.4)",
       borderRadius: 8,
       fontSize: 14,
       fontFamily: "Inter, sans-serif",

@@ -53,7 +53,7 @@ export default function RegistrationComponent() {
                                     placeholder={t('url')}
                                     style={{ height: 40, borderRadius: 8 }}
                                     suffix={
-                                        <Tooltip title="Extra information">
+                                        <Tooltip title={t('urlInformation')}>
                                             <QuestionIcon size={24} style={{ color: 'rgba(0,0,0,.45)' }} />
                                         </Tooltip>
                                     }
@@ -67,7 +67,7 @@ export default function RegistrationComponent() {
                                     placeholder={t('secretKey')}
                                     style={{ height: 40, borderRadius: 8, marginTop: 15 }}
                                     suffix={
-                                        <Tooltip title="Extra information">
+                                        <Tooltip title={t('secretKeyInformation')}>
                                             <QuestionIcon size={24} style={{ color: 'rgba(0,0,0,.45)' }} />
                                         </Tooltip>
                                     }

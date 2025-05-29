@@ -2,7 +2,7 @@
 import { Button, Col, Row, Skeleton, Table } from "antd";
 import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../locales/client";
-import { PlusIcon } from "@phosphor-icons/react";
+import { InvoiceIcon, PlusIcon } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
 
@@ -15,14 +15,14 @@ export default function GetInvoices() {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('invoice')
     const [columns] = useState([]);
-    const { invoiceList, isLoadingInvoice } = useInvoice()
+    const { invoiceList, isLoadingInvoiceList } = useInvoice()
     const router = useRouter();
 
     useEffect(() => {
         dispatch(fetchInvoice());
 
     }, []);
-    
+
 
     const keysToColumn = () => {
         const list = ["ID", "ORDER_NAME", "NET_AMOUNT", "CLIENT_CODE", "CLIENT_NAME", "IS_PAID"]
@@ -64,37 +64,44 @@ export default function GetInvoices() {
         }));
     return (
         <>
-            <Row gutter={16}>
-                <Col span={14}>
-                    <Title level={3} style={{ fontWeight: 700, color: '#ffff' }}>
+            <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
+                <Col span={14} style={{ display: "flex", alignItems: "center" }}>
+                    <InvoiceIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />
+                    <Title level={3} style={{ fontWeight: 700, color: 'rgba(0, 0, 0, 0.7)', marginBottom: 0, marginLeft: 2 }}>
                         {t("invoice")}
                     </Title>
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
                     <Button
                         style={{
-                            color: "#ffff",
-                            backgroundColor: "#5394CC",
-                            padding: 10,
-                            borderRadius: 25,
+                            color: "black",
+                            backgroundColor: "rgba(218, 236, 247, 0.57)",
+                            border: "0px",
+                            paddingInline: 20,
+                            borderRadius: 16,
                             fontSize: 15,
-                            height: 45
+                            height: 40
                         }}
                         onClick={() => router.push(`/portal/invoice/add`)}
                     >
-                        <PlusIcon size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
+                        <PlusIcon size={20} style={{ color: "black" }} />
                         {t("addInvoice")}
                     </Button>
                 </Col>
             </Row>
 
             <Table<Invoice>
-                columns={isLoadingInvoice ? skeletonColumns : invoiceList && keysToColumn()}
-                dataSource={isLoadingInvoice ? Array(1).fill({ key: Math.random() }) : invoiceList}
+                columns={isLoadingInvoiceList ? skeletonColumns : invoiceList && keysToColumn()}
+                dataSource={isLoadingInvoiceList ? Array(1).fill({ key: Math.random() }) : invoiceList}
                 size="middle"
                 className="custom-table"
-                style={{ marginTop: 40, borderRadius: 0, paddingInline:10 }}
+                style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 }}
                 scroll={{ y: 55 * 5 }}
+                rowKey={(record) => record.ID || `row-${Math.random()}`}
+                onRow={(record) => ({
+                    onClick: () => router.push(`/portal/invoice/${record.ID}`),
+                    style: { cursor: "pointer" },
+                })}
             />
 
         </>

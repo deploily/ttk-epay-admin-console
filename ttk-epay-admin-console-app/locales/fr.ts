@@ -1,8 +1,15 @@
 export default {
+    "error": "Erreur",
+    "subTitleError": "Désolé, une erreur s'est produite.",
     "registration.url": "URL",
     "registration.secretKey": "Clé secrète",
+    "registration.urlInformation": "Récupérez l’URL depuis la console Deploily après le paiement.",
+    "registration.secretKeyInformation": "Disponible dans la console Deploily après le paiement du service",
     "registration.save": "Enregistrer",
     "registration.goDeploilyConsole": "Accéder à la console de déploiement",
+    "sideBar.invoice": "Facture",
+    "sideBar.payement": "Paiement",
+    "sideBar.claim": "Réclamation",
     "invoice.invoice": "Facture",
     "invoice.addInvoice": "Ajouterfacture",
     "invoice.IS_PAID": "Statut",
@@ -12,6 +19,28 @@ export default {
     "invoice.NET_AMOUNT": "Montant net",
     "invoice.CLIENT_CODE": "Code client",
     "invoice.CLIENT_NAME": "Nom du client",
+    "invoice.generateLink": "Générer un lien de paiement",
+    'invoice.updateSuccess': 'Réussite de la mise à jour',
+    'invoice.updateError': 'Erreur de mise à jour',
+    "invoice.orderId": "ID de commande",
+    "invoice.orderName": "Nom de la commande",
+    "invoice.netAmount": "Montant net",
+    "invoice.invoiceTva": "Facture TVA",
+    "invoice.amountTva": "Montant TVA",
+    "invoice.amountTtc": "Montant TTC",
+    "invoice.clientCode": "Code client",
+    "invoice.clientName": "Nom du client",
+    "invoice.clientNrc": "N° de référence client",
+    "invoice.clientAdress": "Adresse du client",
+    "invoice.clientMail": "Adresse e-mail du client",
+    "invoice.ClientIdf": "IDF du client",
+    "invoice.isPaid": "Payé",
+    "invoice.productName": "Nom du produit",
+    "invoice.updateInvoice": "Mettre à jour la facture",
+    "invoice.saveInvoice": "Enregistrer la facture"
+
+
+
 
 
 } as const

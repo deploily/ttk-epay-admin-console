@@ -84,3 +84,27 @@ export const invoiceList = [
         IS_PAID: false
     }
 ];
+
+export const invoice =
+    {
+        ID: 1,
+        INVOICE_NUMBER: 1001,
+        ORDER_ID: "ORD-1001",
+        INVOICE_DATE: "2025-04-01T10:00:00.000Z",
+        INVOICE_TYPE_CODE: "STANDARD",
+        NET_AMOUNT: 1200,
+        INVOICE_TVA: 0.19,
+        AMOUNT_TVA: 228,
+        AMOUNT_TTC: 1428,
+        INVOICE_STATE_CODE: "PAID",
+        ORDER_NAME: "Website Development",
+        CLIENT_CODE: 501,
+        CLIENT_NAME: "Acme Corp",
+        CLIENT_NRC: "RC123456789",
+        CLIENT_ADDRESS: "123 Business St, Paris, France",
+        CLIENT_MAIL: "contact@acme.com",
+        CLIENT_IDF: "FR123456789",
+        PRODUCT_NAME: "Web App",
+        IS_PAID: true
+    }
+

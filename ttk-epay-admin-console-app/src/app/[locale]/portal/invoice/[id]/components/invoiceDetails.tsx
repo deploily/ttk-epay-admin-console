@@ -83,75 +83,92 @@ export default function InvoiceDetails({ invoiceId }: { invoiceId: string }) {
                         wrapperCol={{ flex: 0 }}
                         colon={false}
                         style={{ padding: 20 }}
+                        initialValues={{
+                            orderId:invoice.ORDER_ID,
+                            orderName: invoice.ORDER_NAME,
+                            netAmount: invoice.NET_AMOUNT,
+                            invoiceTva: invoice.INVOICE_TVA,
+                            amountTva: invoice.AMOUNT_TVA,
+                            amountTtc: invoice.AMOUNT_TTC,
+                            clientCode: invoice.CLIENT_CODE,
+                            clientName: invoice.CLIENT_NAME,
+                            clientNrc: invoice.CLIENT_NRC,
+                            clientAdress: invoice.CLIENT_ADDRESS,
+                            clientMail: invoice.CLIENT_MAIL,
+                            ClientIdf: invoice.CLIENT_IDF,
+                            isPaid: invoice.IS_PAID,
+                            productName: invoice.PRODUCT_NAME,
+
+                        }}
                     >
                         <Row gutter={[16, 16]}>
                             <Col md={12} xs={24}>
                                 <Form.Item label={t('orderId')} name="orderId">
-                                    <CustomInvoiceInput defaultValue={invoice.ORDER_ID} style={{ color: theme.token.colorBlack }} />
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24}>
                                 <Form.Item label={t('orderName')} name="orderName">
-                                    <CustomInvoiceInput defaultValue={invoice.ORDER_NAME} style={{ color: theme.token.colorBlack }} />
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Form.Item label={t('netAmount')} name="netAmount">
-                            <CustomInvoiceInput defaultValue={invoice.NET_AMOUNT} style={{ color: theme.token.colorBlack }} />
+                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                         </Form.Item>
                         <Row gutter={[16, 16]}>
                             <Col md={8} xs={24}>
                                 <Form.Item label={t('invoiceTva')} name="invoiceTva">
-                                    <CustomInvoiceInput defaultValue={invoice.INVOICE_TVA} style={{ color: theme.token.colorBlack }} />
+                                    <CustomInvoiceInput  style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                             <Col md={8} xs={24}>
                                 <Form.Item label={t('amountTva')} name="amountTva">
-                                    <CustomInvoiceInput defaultValue={invoice.AMOUNT_TVA} style={{ color: theme.token.colorBlack }} />
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                             <Col md={8} xs={24}>
                                 <Form.Item label={t('amountTtc')} name="amountTtc">
-                                    <CustomInvoiceInput defaultValue={invoice.AMOUNT_TTC} style={{ color: theme.token.colorBlack }} />
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Form.Item label={t('clientCode')} name="clientCode">
-                            <CustomInvoiceInput defaultValue={invoice.CLIENT_CODE} style={{ color: theme.token.colorBlack }} />
+                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                         </Form.Item>
                         <Row gutter={[16, 16]}>
                             <Col md={16} xs={24}>
                                 <Form.Item label={t('clientName')} name="clientName">
-                                    <CustomInvoiceInput defaultValue={invoice.CLIENT_NAME} style={{ color: theme.token.colorBlack }} />
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                             <Col md={8} xs={24}>
                                 <Form.Item label={t('clientNrc')} name="clientNrc">
-                                    <CustomInvoiceInput defaultValue={invoice.CLIENT_NRC} style={{ color: theme.token.colorBlack }} />
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Form.Item label={t('clientAdress')} name="clientAdress">
-                            <CustomInvoiceInput defaultValue={invoice.CLIENT_ADDRESS} style={{ color: theme.token.colorBlack }} />
+                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                         </Form.Item>
                         <Form.Item label={t('clientMail')} name="clientMail">
-                            <CustomInvoiceInput defaultValue={invoice.CLIENT_MAIL} style={{ color: theme.token.colorBlack }} />
+                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                         </Form.Item>
                         <Row gutter={[16, 16]}>
                             <Col md={20} xs={24}>
                                 <Form.Item label={t('ClientIdf')} name="ClientIdf">
-                                    <CustomInvoiceInput defaultValue={invoice.CLIENT_IDF} style={{ color: theme.token.colorBlack }} />
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                             <Col md={4} xs={24}>
-                                <Form.Item name="isPaid">
-                                    <Checkbox defaultChecked={invoice.IS_PAID}>{t("isPaid")}</Checkbox>
+                                <Form.Item name="isPaid" valuePropName="checked" >
+                                    <Checkbox>{t("isPaid")}</Checkbox>
                                 </Form.Item>
                             </Col>
                         </Row>
 
                         <Form.Item label={t('productName')} name="productName">
-                            <CustomInvoiceInput defaultValue={invoice.PRODUCT_NAME} style={{ color: theme.token.colorBlack }} />
+                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: 'end', marginTop: 20 }}>

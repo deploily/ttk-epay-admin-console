@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useAppDispatch } from "@/lib/hook";
 import { removeRegistration } from "@/lib/features/registration/registrationSlice";
 import { useRouter } from "next/navigation";
+import EditRegistration from "./editRegistration";
 
 
 
@@ -19,11 +20,18 @@ export function AppAppBarDesktop() {
   const dispatch = useAppDispatch();
   const router = useRouter()
 
-  const settingClick = () => {
-    dispatch(removeRegistration())
-    router.push('/')
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  }
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+
+  // const settingClick = () => {
+  //   dispatch(removeRegistration())
+  //   router.push('/')
+
+  // }
 
   return (
     <>
@@ -68,7 +76,8 @@ export function AppAppBarDesktop() {
                 }}
               >
                 <LocaleSwitcher />
-                <GearIcon size={24} style={{ cursor: "pointer"}} onClick={settingClick} />
+                <GearIcon size={24} style={{ cursor: "pointer"}} onClick={showModal} />
+                <EditRegistration isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
               </Row>
             </Col>
           </Row>

@@ -9,6 +9,7 @@ import LocaleSwitcher from './localeSwitcher';
 import { useAppDispatch } from '@/lib/hook';
 import { setRegistration } from '@/lib/features/registration/registrationSlice';
 import { useRouter } from 'next/navigation';
+import { useRegistration } from '@/lib/features/registration/registrationSelectors';
 
 
 export default function RegistrationComponent() {
@@ -16,6 +17,7 @@ export default function RegistrationComponent() {
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const { registration } = useRegistration()
 
     const onFinish = async(values: any) => {
         await dispatch(setRegistration(values))
@@ -45,6 +47,10 @@ export default function RegistrationComponent() {
                             name="control-hooks"
                             onFinish={onFinish}
                             style={{ paddingInline: "10%" }}
+                            initialValues={{
+                                url: registration?.url,
+                                secretKey: registration?.secretKey,
+                            }}
                         >
 
                             <Form.Item name="url" rules={[{ required: true }]} >

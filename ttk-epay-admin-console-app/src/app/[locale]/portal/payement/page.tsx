@@ -1,4 +1,10 @@
+import GetPayements from "./components/getPayements";
+
 export default function Page() {
-    return;
+    return(
+      <>
+      <GetPayements/>
+      </>
+    )
   }
   

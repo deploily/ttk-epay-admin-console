@@ -3,7 +3,7 @@ import { payement, payementList } from "./data";
 
 
 export const fetchPayement = createAsyncThunk(
-  "payement/getpayements",
+  "payement/getPayements",
   async (_, thunkAPI) => {
     try {
       const response = { status: 200, data: payementList };

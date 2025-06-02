@@ -39,12 +39,36 @@ export default {
     "invoice.updateInvoice": "Mettre à jour la facture",
     "invoice.saveInvoice": "Enregistrer la facture",
 
-    "payement.payement":"Paiement",
+    "payement.payement": "Paiement",
     "payement.downloadList": "Télécharger la liste",
     "payment.action Code": "Code d'action",
+    "payment.action ACTION_CODE": "Code d'action",
     "payement.Amount": "Montant",
+    "payement.AMOUNT": "Montant",
     "payement.order Number": "Numéro de commande",
-    "payement.date": "Date"
+    "payement.ORDER_NUMBER Number": "Numéro de commande",
+    "payement.date": "Date",
+    "payement.DATE": "Date",
+    "payement.downloadReceipt": "Télécharger le reçu",
+    "payement.actionCodeDescreption": "Description du code d'action",
+    "payement.amount": "Montant",
+    "payement.authCode": "Code d'authentification",
+    "payement.currency": "Devise",
+    "payement.errorMessage": "Message d'erreur",
+    "payement.cardHoldeName": "Nom du titulaire de la carte",
+    "payement.expiration": "Expiration",
+    "payement.payement.satimOrderId": "Identifiant de la commande Satim",
+    "payement.responseCodeDescreption": "Description du code réponse",
+
+    "claim.claim": "Réclamation",
+    "claim.id": "id",
+    "claim.title": "Titre",
+    "claim.status": "Statut",
+    "claim.date": "Date",
+    "claim.description": "Description",
+    "claim.open": "Overt",
+    "claim.closed": "Fermé",
+
 
 
 

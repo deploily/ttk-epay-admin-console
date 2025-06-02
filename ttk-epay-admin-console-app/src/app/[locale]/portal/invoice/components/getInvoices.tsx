@@ -5,7 +5,6 @@ import { useScopedI18n } from "../../../../../../locales/client";
 import { InvoiceIcon, PlusIcon } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
-
 import { useRouter } from "next/navigation";
 import { useInvoice } from "@/lib/features/invoice/invoiceSelector";
 import { fetchInvoice } from "@/lib/features/invoice/invoiceThanks";
@@ -44,10 +43,7 @@ export default function GetInvoices() {
                 };
         });
 
-        // columns = [
-        //     ...columns,
 
-        // ];
 
         return columns;
     };

@@ -58,7 +58,8 @@ export const postInvoice = createAsyncThunk(
     try {
       
       const response = { status: 200,  data: data };
-
+      console.log("data==== ", data);
+      
       if (response.status === 200) {
         return response.data;
       } else {

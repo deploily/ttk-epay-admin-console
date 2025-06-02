@@ -37,7 +37,14 @@ export default {
   "invoice.isPaid": "Is paid",
   "invoice.productName": "Product name",
   "invoice.updateInvoice":"Update invoice",
-  "invoice.saveInvoice":"Save invoice"
+  "invoice.saveInvoice":"Save invoice",
+
+  "payement.payement":"Payement",
+  "payement.downloadList": "Download list",
+  "payement.actionCode": "Action code", 
+  "payement.Amount": "Amount", 
+  "payement.orderNumber": "Order naumber", 
+  "payement.date": "Date"
 
 
 

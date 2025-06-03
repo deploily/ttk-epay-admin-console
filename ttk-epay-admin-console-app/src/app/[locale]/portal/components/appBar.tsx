@@ -9,7 +9,6 @@ import { GearIcon, ListIcon } from "@phosphor-icons/react";
 import { MainSideBarMobile } from "./sideBar";
 import Link from "next/link";
 import { useAppDispatch } from "@/lib/hook";
-import { removeRegistration } from "@/lib/features/registration/registrationSlice";
 import { useRouter } from "next/navigation";
 import EditRegistration from "./editRegistration";
 
@@ -17,8 +16,7 @@ import EditRegistration from "./editRegistration";
 
 
 export function AppAppBarDesktop() {
-  const dispatch = useAppDispatch();
-  const router = useRouter()
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -76,8 +74,8 @@ export function AppAppBarDesktop() {
                 }}
               >
                 <LocaleSwitcher />
-                <GearIcon size={24} style={{ cursor: "pointer"}} onClick={showModal} />
-                <EditRegistration isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
+                <GearIcon size={24} style={{ cursor: "pointer" }} onClick={showModal} />
+                <EditRegistration isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
               </Row>
             </Col>
           </Row>
@@ -89,14 +87,11 @@ export function AppAppBarDesktop() {
 
 export function AppAppBarMobile() {
   const [theme] = useState("dark");
-  const dispatch = useAppDispatch();
-  const router = useRouter()
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const settingClick = () => {
-    dispatch(removeRegistration())
-    router.push('/')
-
-  }
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -154,7 +149,8 @@ export function AppAppBarMobile() {
                 }}
               >
                 <LocaleSwitcher />
-                <GearIcon size={24} style={{ cursor: "pointer"}} onClick={settingClick} />
+                <GearIcon size={24} style={{ cursor: "pointer" }} onClick={showModal} />
+                <EditRegistration isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                 <ListIcon size={28} style={{ color: "black" }} onClick={showDrawer} />
               </Row>
             </Col>

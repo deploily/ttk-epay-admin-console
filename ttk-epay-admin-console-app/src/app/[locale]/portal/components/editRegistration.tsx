@@ -1,11 +1,11 @@
 'use client'
 
 import { Modal } from "antd"
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Form, Input, Row, Tooltip } from 'antd';
 import { FloppyDiskIcon, QuestionIcon } from '@phosphor-icons/react';
 import { useAppDispatch } from '@/lib/hook';
-import { setRegistration } from '@/lib/features/registration/registrationSlice';
+import { getRegistration, setRegistration } from '@/lib/features/registration/registrationSlice';
 import { useScopedI18n } from "../../../../../locales/client";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 
@@ -28,7 +28,9 @@ export default function EditRegistration({ isModalOpen, setIsModalOpen }: { isMo
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
+    useEffect(() => {
+            dispatch(getRegistration());
+        }, [])
 
     
     return (

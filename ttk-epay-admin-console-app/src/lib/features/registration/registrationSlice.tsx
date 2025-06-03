@@ -1,36 +1,42 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Registration {
-    url: string;
-    secretKey: string;
+  url: string;
+  secretKey: string;
 }
 interface RegistrationState {
-    registration?: Registration
+  registration?: Registration
 }
 
 const initialState: RegistrationState = {
-    registration: undefined,
- 
+  registration: undefined,
+
 };
 const RegistrationSlice = createSlice({
   name: "Registration",
   initialState,
   reducers: {
-    setRegistration:(state, action:PayloadAction<Registration | undefined>)=>{
-        state.registration = action.payload  
+    setRegistration: (state, action: PayloadAction<Registration | undefined>) => {
+      localStorage.setItem('registration', JSON.stringify(action.payload));
+      const val = localStorage.getItem('registration') as string;
+      
+      state.registration = JSON.parse(val);
     },
-    
-    removeRegistration:(state)=>{
-        state.registration = undefined  
-        
+
+    getRegistration: (state) => {
+      const val = localStorage.getItem('registration') as string;
+      console.log(val);
+      
+      state.registration = JSON.parse(val);
+
     }
   },
   extraReducers: (builder) => {
     builder
-      
+
   },
 });
-export const { setRegistration, removeRegistration } = RegistrationSlice.actions;
+export const { setRegistration, getRegistration } = RegistrationSlice.actions;
 
 export default RegistrationSlice.reducer;
 

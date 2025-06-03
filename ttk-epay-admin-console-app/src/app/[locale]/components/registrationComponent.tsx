@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Col, Form, Input, Row, Tooltip } from 'antd';
 import Image from 'next/image';
 import { FloppyDiskIcon, QuestionIcon } from '@phosphor-icons/react';
@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useScopedI18n } from '../../../../locales/client';
 import LocaleSwitcher from './localeSwitcher';
 import { useAppDispatch } from '@/lib/hook';
-import { setRegistration } from '@/lib/features/registration/registrationSlice';
+import { getRegistration, setRegistration } from '@/lib/features/registration/registrationSlice';
 import { useRouter } from 'next/navigation';
 import { useRegistration } from '@/lib/features/registration/registrationSelectors';
 
@@ -19,7 +19,7 @@ export default function RegistrationComponent() {
     const router = useRouter();
     const { registration } = useRegistration()
 
-    const onFinish = async(values: any) => {
+    const onFinish = async (values: any) => {
         await dispatch(setRegistration(values))
         // if (values) form.resetFields();
         await router.push("/portal/invoice")
@@ -27,9 +27,14 @@ export default function RegistrationComponent() {
 
     };
 
+    useEffect(() => {
+        dispatch(getRegistration());
+    }, [])
+    console.log('regitration==== ', registration);
+    
     return (
         <>
-           <div style={{marginTop:5, marginInline:5, display:"flex", justifyContent:"start"}}> <LocaleSwitcher /></div>
+            <div style={{ marginTop: 5, marginInline: 5, display: "flex", justifyContent: "start" }}> <LocaleSwitcher /></div>
             <Row>
                 <Col md={12} xs={24}>
                     <Col span={24} style={{ display: "flex", justifyContent: "center", marginTop: "10%", marginBottom: "15%" }}>
@@ -95,7 +100,7 @@ export default function RegistrationComponent() {
                                         }}
                                         onClick={() => { }}
                                     >
-                                        <FloppyDiskIcon size={24}/>
+                                        <FloppyDiskIcon size={24} />
                                         {t('save')}
                                     </Button>
                                 </Row>
@@ -109,14 +114,14 @@ export default function RegistrationComponent() {
                     </Col>
 
                 </Col>
-                <Col md={12} xs={24} style={{display:"flex", alignItems:"center", justifyContent:"center"}} >
-                <Image
-                            src="/images/capture-url.png"
-                            width={528}
-                            height={404}
-                            alt=""
+                <Col md={12} xs={24} style={{ display: "flex", alignItems: "center", justifyContent: "center" }} >
+                    <Image
+                        src="/images/capture-url.png"
+                        width={528}
+                        height={404}
+                        alt=""
 
-                        />
+                    />
                 </Col>
             </Row>
         </>

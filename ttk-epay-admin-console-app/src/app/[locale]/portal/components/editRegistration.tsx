@@ -30,7 +30,6 @@ export default function EditRegistration({ isModalOpen, setIsModalOpen }: { isMo
     };
 
 
-    console.log(registration);
     
     return (
         <>

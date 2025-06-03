@@ -19,10 +19,10 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     icon: <InvoiceIcon size={24} />,
   },
   {
-    key: "payement",
+    key: "payment",
     label: (
-      <Link href="/portal/payement">
-        <span style={labelStyle}>{scopedSidebar("payement")}</span>
+      <Link href="/portal/payment">
+        <span style={labelStyle}>{scopedSidebar("payment")}</span>
       </Link>
     ),
     icon: <CardholderIcon size={24} />,

@@ -7,7 +7,7 @@ import { useScopedI18n } from "../../../../../../../locales/client";
 import Title from "antd/es/typography/Title";
 import { theme } from "@/styles/theme";
 import { CustomPrimaryButton } from "@/styles/components/buttonStyle";
-import { postInvoice } from "@/lib/features/invoice/invoiceThanks";
+import { postInvoice } from "@/lib/features/invoice/invoiceThunks";
 import { useRouter } from "next/navigation";
 
 export default function AddInvoice() {
@@ -18,7 +18,7 @@ export default function AddInvoice() {
 
 
 
-    const handleFinish = async(values: any) => {
+    const handleFinish = async (values: any) => {
 
         await dispatch(postInvoice({ ...values }))
             .unwrap()

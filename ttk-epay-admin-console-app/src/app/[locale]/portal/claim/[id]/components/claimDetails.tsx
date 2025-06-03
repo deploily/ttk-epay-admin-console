@@ -1,12 +1,12 @@
 'use client'
 import { useAppDispatch } from "@/lib/hook";
 import { TicketIcon } from "@phosphor-icons/react";
-import { Col, Form, Result, Row, Skeleton, Tag, Typography } from "antd";
+import { Col, Result, Row, Skeleton, Tag, Typography } from "antd";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { useEffect } from "react";
-import dayjs from "dayjs";
-import { getClaimById } from "@/lib/features/claim/claimThanks";
+import { getClaimById } from "@/lib/features/claim/claimThunks";
 import { useClaim } from "@/lib/features/claim/claimSelector";
+import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 
 const { Title, Text } = Typography;
 
@@ -15,12 +15,12 @@ export default function ClaimDetails({ claimId }: { claimId: string }) {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('claim')
     const translate = useI18n()
-    const [form] = Form.useForm();
     const { claim, claimError, isLoadingClaim } = useClaim()
+    const { registration } = useRegistration()
 
     useEffect(() => {
         dispatch(getClaimById(claimId));
-    }, []);
+    }, [registration]);
 
 
     return (
@@ -46,41 +46,41 @@ export default function ClaimDetails({ claimId }: { claimId: string }) {
 
             {!isLoadingClaim && claim &&
                 <>
-                    
-                <div style={{
-                    paddingTop: 30, paddingInline: 20,
-                    marginBottom: 16, gap: "10px", alignItems: 'center', flexDirection: "row",
-                    display: "flex"
-                }}>
-                    <Title level={4} style={{ color: 'black', margin: 0, fontWeight:500 }}>
-                        {claim.title}
-                    </Title>
-                  
-                    
-                        <Tag color= {claim.status? "success" : "default"} style={{fontSize:13, paddingInline:10}}>
-                            {claim.status ? t('open'): t('closed')}
-                            </Tag>
-                </div>
 
-                
-                <div
-                    style={{
-                        marginTop: 10, marginInline: 20,
-                        background: '#F2F2F2',
-                        border:"1px solid rgba(0, 0, 0, 0.21)",
-                        padding: 16,
-                        borderRadius: 8,
-                        marginBottom: 24,
-                    }}
-                >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
-                        <div style={{ flex: 1 }}>
-                            <Text style={{ color: 'black' }}>
-                                {claim.description}
-                            </Text>
+                    <div style={{
+                        paddingTop: 30, paddingInline: 20,
+                        marginBottom: 16, gap: "10px", alignItems: 'center', flexDirection: "row",
+                        display: "flex"
+                    }}>
+                        <Title level={4} style={{ color: 'black', margin: 0, fontWeight: 500 }}>
+                            {claim.title}
+                        </Title>
+
+
+                        <Tag color={claim.status ? "success" : "default"} style={{ fontSize: 13, paddingInline: 10 }}>
+                            {claim.status ? t('open') : t('closed')}
+                        </Tag>
+                    </div>
+
+
+                    <div
+                        style={{
+                            marginTop: 10, marginInline: 20,
+                            background: '#F2F2F2',
+                            border: "1px solid rgba(0, 0, 0, 0.21)",
+                            padding: 16,
+                            borderRadius: 8,
+                            marginBottom: 24,
+                        }}
+                    >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
+                            <div style={{ flex: 1 }}>
+                                <Text style={{ color: 'black' }}>
+                                    {claim.description}
+                                </Text>
+                            </div>
                         </div>
                     </div>
-                </div>
 
 
                 </>

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Claim } from "./claimInterface";
-import { fetchClaim, getClaimById } from "./claimThanks";
+import { fetchClaim, getClaimById } from "./claimThunks";
 
 
 
@@ -22,7 +22,7 @@ const initialState: ClaimState = {
   claim: undefined,
   isLoadingClaim: false,
   claimError: undefined,
-  
+
 };
 const ClaimSlice = createSlice({
   name: "claim",
@@ -44,7 +44,7 @@ const ClaimSlice = createSlice({
         state.claimErrorList = payload;
       })
 
-     .addCase(getClaimById.pending, (state) => {
+      .addCase(getClaimById.pending, (state) => {
         state.isLoadingClaim = true;
         state.claimError = null;
       })
@@ -58,7 +58,7 @@ const ClaimSlice = createSlice({
         state.isLoadingClaim = false;
         state.claimError = payload;
       })
-      
+
 
   },
 });

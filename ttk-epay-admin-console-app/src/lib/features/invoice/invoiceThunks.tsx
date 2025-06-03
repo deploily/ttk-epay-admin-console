@@ -1,13 +1,31 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { invoice, invoiceList } from "./data";
+const { ttk_epay } = require('@deploily/ttk-epay-nodejs-client'); 
 
+const client = new ttk_epay();
 
+// export const fetchInvoice = createAsyncThunk(
+//   "invoice/getInvoices",
+//   async (_, thunkAPI) => {
+//     try {
+//       const response = { status: 200, data: invoiceList };
+      
+//       if (response.status === 200) {
+//         return response.data;
+//       } else {
+//         return thunkAPI.rejectWithValue("Failed to fetch invoices");
+//       }
+//     } catch (error: any) {
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// )
 export const fetchInvoice = createAsyncThunk(
   "invoice/getInvoices",
   async (_, thunkAPI) => {
     try {
       const response = { status: 200, data: invoiceList };
-
+      
       if (response.status === 200) {
         return response.data;
       } else {
@@ -16,6 +34,9 @@ export const fetchInvoice = createAsyncThunk(
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }
+   
+   
+
   }
 )
 
@@ -58,7 +79,6 @@ export const postInvoice = createAsyncThunk(
     try {
       
       const response = { status: 200,  data: data };
-      console.log("data==== ", data);
       
       if (response.status === 200) {
         return response.data;

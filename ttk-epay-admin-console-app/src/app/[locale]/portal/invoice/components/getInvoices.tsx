@@ -7,8 +7,9 @@ import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useInvoice } from "@/lib/features/invoice/invoiceSelector";
-import { fetchInvoice } from "@/lib/features/invoice/invoiceThanks";
+import { fetchInvoice } from "@/lib/features/invoice/invoiceThunks";
 import { Invoice } from "@/lib/features/invoice/invoiceInterface";
+import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 
 export default function GetInvoices() {
     const dispatch = useAppDispatch();
@@ -16,11 +17,11 @@ export default function GetInvoices() {
     const [columns] = useState([]);
     const { invoiceList, isLoadingInvoiceList } = useInvoice()
     const router = useRouter();
-
+    const { registration } = useRegistration()
     useEffect(() => {
         dispatch(fetchInvoice());
 
-    }, []);
+    }, [registration]);
 
 
     const keysToColumn = () => {

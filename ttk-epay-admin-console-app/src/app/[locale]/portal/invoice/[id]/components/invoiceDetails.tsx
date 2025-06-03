@@ -6,10 +6,11 @@ import { Button, Checkbox, Col, Form, message, Radio, Result, Row, Skeleton } fr
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import Title from "antd/es/typography/Title";
 import { useEffect } from "react";
-import { getInvoiceById, updateInvoice } from "@/lib/features/invoice/invoiceThanks";
+import { getInvoiceById, updateInvoice } from "@/lib/features/invoice/invoiceThunks";
 import { useInvoice } from "@/lib/features/invoice/invoiceSelector";
 import { theme } from "@/styles/theme";
 import { CustomPrimaryButton } from "@/styles/components/buttonStyle";
+import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 
 export default function InvoiceDetails({ invoiceId }: { invoiceId: string }) {
     const dispatch = useAppDispatch();
@@ -17,21 +18,22 @@ export default function InvoiceDetails({ invoiceId }: { invoiceId: string }) {
     const translate = useI18n()
     const [form] = Form.useForm();
     const { invoice, invoiceError, isLoadingInvoice } = useInvoice()
+    const { registration } = useRegistration()
 
     useEffect(() => {
         dispatch(getInvoiceById(invoiceId));
-    }, []);
+    }, [registration]);
 
     const handleUpdate = (formValues: any) => {
-        
+
         dispatch(updateInvoice({ id: invoiceId, ...formValues }))
             .unwrap()
-            // .then(() => {
-            //     message.success(t("updateSuccess"));
-            // })
-            // .catch(() => {
-            //     message.error(t("updateError"));
-            // });
+        // .then(() => {
+        //     message.success(t("updateSuccess"));
+        // })
+        // .catch(() => {
+        //     message.error(t("updateError"));
+        // });
     };
 
     return (
@@ -43,7 +45,7 @@ export default function InvoiceDetails({ invoiceId }: { invoiceId: string }) {
                         {t("invoice")}
                     </Title>
                 </Col>
-                <Col span={24} style={{ display: "flex", justifyContent: "end", marginTop:10 }}>
+                <Col span={24} style={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
                     <Button
                         style={{
                             color: "black",
@@ -62,7 +64,7 @@ export default function InvoiceDetails({ invoiceId }: { invoiceId: string }) {
                 </Col>
             </Row>
             <Row>
-                
+
             </Row>
             {isLoadingInvoice && !invoice &&
                 <Row gutter={[10, 10]} style={{ margin: 20 }}>
@@ -84,7 +86,7 @@ export default function InvoiceDetails({ invoiceId }: { invoiceId: string }) {
                         colon={false}
                         style={{ padding: 20 }}
                         initialValues={{
-                            orderId:invoice.ORDER_ID,
+                            orderId: invoice.ORDER_ID,
                             orderName: invoice.ORDER_NAME,
                             netAmount: invoice.NET_AMOUNT,
                             invoiceTva: invoice.INVOICE_TVA,
@@ -119,7 +121,7 @@ export default function InvoiceDetails({ invoiceId }: { invoiceId: string }) {
                         <Row gutter={[16, 16]}>
                             <Col md={8} xs={24}>
                                 <Form.Item label={t('invoiceTva')} name="invoiceTva">
-                                    <CustomInvoiceInput  style={{ color: theme.token.colorBlack }} />
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                             <Col md={8} xs={24}>

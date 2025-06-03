@@ -1,4 +1,4 @@
-export interface Payement {
+export interface Payment {
   ID: number;
   DATE: string;
   ACTION_CODE_DESCRIPTION: string;

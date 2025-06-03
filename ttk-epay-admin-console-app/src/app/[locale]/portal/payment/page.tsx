@@ -1,9 +1,9 @@
-import GetPayements from "./components/getPayements";
+import GetPayments from "./components/getPayemnts";
 
 export default function Page() {
     return(
       <>
-      <GetPayements/>
+      <GetPayments/>
       </>
     )
   }

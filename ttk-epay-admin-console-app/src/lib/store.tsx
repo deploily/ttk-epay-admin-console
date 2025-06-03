@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import RegistrationSlice from './features/registration/registrationSlice'
 import InvoiceSlice from './features/invoice/invoiceSlice'
-import PayementSlice from './features/payement/payementSlice'
+import PaymentSlice from './features/payment/paymentSlice'
 import ClaimSlice from './features/claim/claimSlice'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-        registration: RegistrationSlice,
-        invoice: InvoiceSlice,
-        payement: PayementSlice,
-        claim: ClaimSlice
+      registration: RegistrationSlice,
+      invoice: InvoiceSlice,
+      payment: PaymentSlice,
+      claim: ClaimSlice
     },
   });
 };

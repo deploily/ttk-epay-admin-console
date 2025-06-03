@@ -1,4 +1,4 @@
-import PayementDetails from "./components/payementDetails";
+import PaymentDetails from "./components/paymentDetails";
 
 type Props = {
   params: { id: string };
@@ -6,7 +6,7 @@ type Props = {
 export default function Page({ params: { id } }: Props) {
   return (
     <>
-      <PayementDetails payementId={id} />
+      <PaymentDetails paymentId={id} />
     </>
   );
 }

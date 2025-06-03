@@ -1,5 +1,5 @@
 'use client'
-import {  Col, Row, Skeleton, Table } from "antd";
+import { Col, Row, Skeleton, Table } from "antd";
 import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../locales/client";
 import { TicketIcon } from "@phosphor-icons/react";
@@ -9,8 +9,9 @@ import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import { ColumnsType } from "antd/es/table";
 import { useClaim } from "@/lib/features/claim/claimSelector";
-import { fetchClaim } from "@/lib/features/claim/claimThanks";
+import { fetchClaim } from "@/lib/features/claim/claimThunks";
 import { Claim } from "@/lib/features/claim/claimInterface";
+import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 
 
 export default function GetClaims() {
@@ -18,12 +19,13 @@ export default function GetClaims() {
     const t = useScopedI18n('claim')
     const [columns] = useState([]);
     const { claimList, isLoadingClaimList } = useClaim()
+    const { registration } = useRegistration()
     const router = useRouter();
 
     useEffect(() => {
         dispatch(fetchClaim());
 
-    }, []);
+    }, [registration]);
 
 
     const keysToColumn = () => {

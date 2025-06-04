@@ -1,4 +1,8 @@
-
+export interface InvoiceResponse {
+  ITEMS: Invoice[],
+  CURRENTPAGE: number,
+  TOTALPAGES: number
+}
 
 export interface Invoice {
   ID: number;

@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useInvoice } from "@/lib/features/invoice/invoiceSelector";
-import { fetchInvoice } from "@/lib/features/invoice/invoiceThunks";
+import { fetchInvoice, getInvoiceByOrderId } from "@/lib/features/invoice/invoiceThunks";
 import { Invoice } from "@/lib/features/invoice/invoiceInterface";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 
@@ -18,14 +18,21 @@ export default function GetInvoices() {
     const { invoiceList, isLoadingInvoiceList } = useInvoice()
     const router = useRouter();
     const { registration } = useRegistration()
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
+
     useEffect(() => {
-        dispatch(fetchInvoice());
+        dispatch(fetchInvoice({ numberPage: page, pageSize: pageSize }));
 
     }, [registration]);
+const displayInvoiceByOrderId =(ORDER_ID:any)=>{
+            dispatch(getInvoiceByOrderId(ORDER_ID));
+    router.push(`/portal/invoice/${ORDER_ID}`)
 
+}
 
     const keysToColumn = () => {
-        const list = ["ID", "ORDER_NAME", "NET_AMOUNT", "CLIENT_CODE", "CLIENT_NAME", "IS_PAID"]
+        const list = [ "ID","ORDER_ID", "ORDER_NAME", "NET_AMOUNT", "CLIENT_CODE", "CLIENT_NAME", "IS_PAID"]
 
         let columns = list.map((element: any, index) => {
             if (element === "IS_PAID")
@@ -41,10 +48,9 @@ export default function GetInvoices() {
                     title: t(element),
                     dataIndex: element,
                     key: index,
+                    render: (element: any) => ((element === null || element === "") ? <span  > - </span> : <span>{element}</span>)
                 };
         });
-
-
 
         return columns;
     };
@@ -89,16 +95,28 @@ export default function GetInvoices() {
 
             <Table<Invoice>
                 columns={isLoadingInvoiceList ? skeletonColumns : invoiceList && keysToColumn()}
-                dataSource={isLoadingInvoiceList ? Array(1).fill({ key: Math.random() }) : invoiceList}
+                dataSource={isLoadingInvoiceList ? Array(1).fill({ key: Math.random() }) : invoiceList?.ITEMS}
                 size="middle"
                 className="custom-table"
                 style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 }}
-                scroll={{ y: 55 * 5 }}
+                scroll={{ y: 70 * 5 }}
                 rowKey={(record) => record.ID || `row-${Math.random()}`}
                 onRow={(record) => ({
-                    onClick: () => router.push(`/portal/invoice/${record.ID}`),
+                    onClick: () => {displayInvoiceByOrderId(record.ORDER_ID)},
                     style: { cursor: "pointer" },
                 })}
+                pagination={{
+                    total: ((invoiceList?.TOTALPAGES || 0) * pageSize),
+                    current: page,
+                    pageSize: pageSize,
+                    showSizeChanger: true, 
+                    pageSizeOptions: [5, 10, 20, 100],
+                    onChange: (newPage, newPageSize) => {
+                        setPage(newPage)
+                        setPageSize(newPageSize);
+                        dispatch(fetchInvoice({ numberPage: newPage, pageSize: newPageSize }));
+                    },
+                }}
             />
 
         </>

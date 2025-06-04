@@ -1,15 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchInvoice, getInvoiceById } from "./invoiceThunks";
-import { Invoice } from "./invoiceInterface";
+import { fetchInvoice, getInvoiceByOrderId } from "./invoiceThunks";
+import { Invoice, InvoiceResponse } from "./invoiceInterface";
 
 interface InvoiceState {
-  invoiceList?: Invoice[];
+  invoiceList?: InvoiceResponse;
   isLoadingInvoiceList: boolean;
   invoiceErrorList?: any;
   invoice?: Invoice,
   isLoadingInvoice: boolean;
   invoiceError?: any;
-
 
 }
 
@@ -42,19 +41,27 @@ const InvoiceSlice = createSlice({
         state.invoiceErrorList = payload;
       })
 
-      .addCase(getInvoiceById.pending, (state) => {
+      .addCase(getInvoiceByOrderId.pending, (state) => {
         state.isLoadingInvoice = true;
         state.invoiceError = null;
+        state.invoice = undefined;
+        return state;
+
       })
-      .addCase(getInvoiceById.fulfilled, (state, action) => {
+      .addCase(getInvoiceByOrderId.fulfilled, (state, action) => {
+
         state.isLoadingInvoice = false;
         state.invoiceError = null;
         state.invoice = action.payload;
 
+        return state;
+
       })
-      .addCase(getInvoiceById.rejected, (state, { payload }) => {
+      .addCase(getInvoiceByOrderId.rejected, (state, { payload }) => {
         state.isLoadingInvoice = false;
         state.invoiceError = payload;
+        return state;
+
       })
 
 

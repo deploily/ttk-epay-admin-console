@@ -1,3 +1,4 @@
+"use client"
 import InvoiceDetails from "./components/invoiceDetails";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
 export default function Page({ params: { id } }: Props) {
   return (
     <>
-      <InvoiceDetails invoiceId={id} />
+      <InvoiceDetails invoiceOrderId={id} />
     </>
   );
 }

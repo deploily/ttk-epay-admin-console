@@ -57,71 +57,71 @@ export default function AddInvoice() {
                 >
                     <Row gutter={[16, 16]}>
                         <Col md={12} xs={24}>
-                            <Form.Item label={t('orderId')} name="orderId">
+                            <Form.Item label={t('orderId')} name="ORDER_ID">
                                 <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                             </Form.Item>
                         </Col>
                         <Col md={12} xs={24}>
-                            <Form.Item label={t('orderName')} name="orderName">
+                            <Form.Item label={t('orderName')} name="ORDER_NAME">
                                 <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Form.Item label={t('netAmount')} name="netAmount">
+                    <Form.Item label={t('netAmount')} name="NET_AMOUNT">
                         <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                     </Form.Item>
                     <Row gutter={[16, 16]}>
                         <Col md={8} xs={24}>
-                            <Form.Item label={t('invoiceTva')} name="invoiceTva">
+                            <Form.Item label={t('invoiceTva')} name="INVOICE_TVA">
                                 <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                             </Form.Item>
                         </Col>
                         <Col md={8} xs={24}>
-                            <Form.Item label={t('amountTva')} name="amountTva">
+                            <Form.Item label={t('amountTva')} name="AMOUNT_TVA">
                                 <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                             </Form.Item>
                         </Col>
                         <Col md={8} xs={24}>
-                            <Form.Item label={t('amountTtc')} name="amountTtc">
+                            <Form.Item label={t('amountTtc')} name="AMOUNT_TTC">
                                 <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Form.Item label={t('clientCode')} name="clientCode">
+                    <Form.Item label={t('clientCode')} name="CLIENT_CODE">
                         <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                     </Form.Item>
                     <Row gutter={[16, 16]}>
                         <Col md={16} xs={24}>
-                            <Form.Item label={t('clientName')} name="clientName">
+                            <Form.Item label={t('clientName')} name="CLIENT_NAME">
                                 <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                             </Form.Item>
                         </Col>
                         <Col md={8} xs={24}>
-                            <Form.Item label={t('clientNrc')} name="clientNrc">
+                            <Form.Item label={t('clientNrc')} name="CLIENT_NRC">
                                 <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Form.Item label={t('clientAdress')} name="clientAdress">
+                    <Form.Item label={t('clientAdress')} name="CLIENT_ADDRESS">
                         <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                     </Form.Item>
-                    <Form.Item label={t('clientMail')} name="clientMail">
+                    <Form.Item label={t('clientMail')} name="CLIENT_MAIL">
                         <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                     </Form.Item>
                     <Row gutter={[16, 16]}>
                         <Col md={20} xs={24}>
-                            <Form.Item label={t('ClientIdf')} name="ClientIdf">
+                            <Form.Item label={t('ClientIdf')} name="CLIENT_IDF">
                                 <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                             </Form.Item>
                         </Col>
                         <Col md={4} xs={24}>
-                            <Form.Item name="isPaid" valuePropName="checked">
+                            <Form.Item name="IS_PAID" valuePropName="checked">
                                 <Checkbox>{t("isPaid")}</Checkbox>
                             </Form.Item>
                         </Col>
                     </Row>
 
-                    <Form.Item label={t('productName')} name="productName">
+                    <Form.Item label={t('productName')} name="PRODUCT_NAME">
                         <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                     </Form.Item>
 

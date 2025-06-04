@@ -18,16 +18,13 @@ const RegistrationSlice = createSlice({
   reducers: {
     setRegistration: (state, action: PayloadAction<Registration | undefined>) => {
       localStorage.setItem('registration', JSON.stringify(action.payload));
-      const val = localStorage.getItem('registration') as string;
-      
-      state.registration = JSON.parse(val);
+      const registrationStorage = localStorage.getItem('registration') as string;
+      state.registration = JSON.parse(registrationStorage);
     },
 
     getRegistration: (state) => {
-      const val = localStorage.getItem('registration') as string;
-      console.log(val);
-      
-      state.registration = JSON.parse(val);
+      const registrationStorage = localStorage.getItem('registration') as string;      
+      state.registration = JSON.parse(registrationStorage);
 
     }
   },

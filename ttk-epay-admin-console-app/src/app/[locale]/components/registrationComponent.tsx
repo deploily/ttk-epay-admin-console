@@ -21,7 +21,6 @@ export default function RegistrationComponent() {
 
     const onFinish = async (values: any) => {
         await dispatch(setRegistration(values))
-        // if (values) form.resetFields();
         await router.push("/portal/invoice")
 
 
@@ -29,9 +28,18 @@ export default function RegistrationComponent() {
 
     useEffect(() => {
         dispatch(getRegistration());
+        
     }, [])
-    console.log('regitration==== ', registration);
     
+    useEffect(() => {
+        if (registration) {
+          form.setFieldsValue({
+            url: registration.url,
+            secretKey: registration.secretKey,
+          });
+        }
+      }, [registration]);
+
     return (
         <>
             <div style={{ marginTop: 5, marginInline: 5, display: "flex", justifyContent: "start" }}> <LocaleSwitcher /></div>

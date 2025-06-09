@@ -1,5 +1,5 @@
 'use client'
-import { Button, Col, Row, Skeleton, Table } from "antd";
+import { Button, Col, DatePicker, Row, Skeleton, Table } from "antd";
 import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../locales/client";
 import { DownloadSimpleIcon, FilePdfIcon, InvoiceIcon } from "@phosphor-icons/react";
@@ -21,11 +21,40 @@ export default function GetPayments() {
     const { paymentList, isLoadingPaymentList } = usePayment()
     const router = useRouter();
     const { registration } = useRegistration()
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
+    const { RangePicker } = DatePicker;
+    const [startDate, setStartDate] = useState(dayjs().subtract(30, 'day'));
+    const [endDate, setEndDate] = useState(dayjs());
+
+
+
+    const handleRangeChange = (dates: any) => {
+        if (dates && dates.length === 2) {
+            setStartDate(dates[0]);
+            setEndDate(dates[1]);
+            dispatch(fetchPayment(
+                {
+                    numberPage: page,
+                    pageSize: pageSize,
+                    startDate: startDate.toISOString(),
+                    endDate: endDate.toISOString()
+                }
+            ))
+        }
+    };
+
 
     useEffect(() => {
-        dispatch(fetchPayment());
+        dispatch(fetchPayment({
+            numberPage: page,
+            pageSize: pageSize,
+            startDate: startDate.toISOString(),
+            endDate: endDate.toISOString()
+        }));
 
     }, [registration]);
+
 
 
     const keysToColumn = () => {
@@ -80,13 +109,22 @@ export default function GetPayments() {
     return (
         <>
             <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
-                <Col span={14} style={{ display: "flex", alignItems: "center" }}>
+                <Col span={24} style={{ display: "flex", alignItems: "center" }}>
                     <InvoiceIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />
                     <Title level={3} style={{ fontWeight: 700, color: 'rgba(0, 0, 0, 0.7)', marginBottom: 0, marginLeft: 2 }}>
                         {t("payment")}
                     </Title>
                 </Col>
-                <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
+                <Col span={10}  >
+
+                </Col>
+                <Col span={24} style={{ display: "flex", justifyContent: "end", gap: 4 }}>
+                    <RangePicker
+                        value={[startDate, endDate]}
+                        format='DD-MM-YYYY'
+                        onChange={handleRangeChange}
+
+                    />
                     { //TODO download list 
                     }
                     <Button
@@ -109,7 +147,7 @@ export default function GetPayments() {
 
             <Table<Payment>
                 columns={isLoadingPaymentList ? skeletonColumns : paymentList && keysToColumn()}
-                dataSource={isLoadingPaymentList ? Array(1).fill({ key: Math.random() }) : paymentList}
+                dataSource={isLoadingPaymentList ? Array(1).fill({ key: Math.random() }) : paymentList?.ITEMS}
                 size="middle"
                 className="custom-table"
                 style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 }}
@@ -119,6 +157,23 @@ export default function GetPayments() {
                     onClick: () => router.push(`/portal/payment/${record.ID}`),
                     style: { cursor: "pointer" },
                 })}
+                pagination={{
+                    total: ((paymentList?.TOTALPAGES || 0) * pageSize),
+                    current: page,
+                    pageSize: pageSize,
+                    showSizeChanger: true,
+                    pageSizeOptions: [5, 10, 20, 100],
+                    onChange: (newPage, newPageSize) => {
+                        setPage(newPage)
+                        setPageSize(newPageSize);
+                        dispatch(fetchPayment({
+                            numberPage: newPage,
+                            pageSize: newPageSize,
+                            startDate: startDate.toISOString(),
+                            endDate: endDate.toISOString()
+                        }));
+                    },
+                }}
 
             />
 

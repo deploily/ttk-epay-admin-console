@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Payment } from "./paymentInterface";
+import { Payment, PaymentResponse } from "./paymentInterface";
 import { fetchPayment, getPaymentById } from "./paymentThunks";
 
 
 interface PaymentState {
-  paymentList?: Payment[];
+  paymentList?: PaymentResponse;
   isLoadingPaymentList: boolean;
   paymentErrorList?: any;
   payment?: Payment,

@@ -1,3 +1,10 @@
+export interface PaymentResponse {
+  ITEMS: Payment[],
+  CURRENTPAGE: number,
+  TOTALPAGES: number
+}
+
+
 export interface Payment {
   ID: number;
   DATE: string;

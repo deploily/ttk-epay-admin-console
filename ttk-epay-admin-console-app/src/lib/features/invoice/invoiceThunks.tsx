@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { invoice, invoiceList } from "./data";
 import { Invoice } from "./invoiceInterface";
 const { ttk_epay } = require('@deploily/ttk-epay-nodejs-client');
 ;
@@ -66,7 +65,6 @@ export const postInvoice = createAsyncThunk(
       const response = { status: 200, data: data };
 
       const createdInvoice = await client.create_invoice(data);
-      console.log(`Created invoice === `,createdInvoice);
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchInvoice, getInvoiceByOrderId } from "./invoiceThunks";
+import { fetchInvoice, generateLink, getInvoiceByOrderId } from "./invoiceThunks";
 import { Invoice, InvoiceResponse } from "./invoiceInterface";
 
 interface InvoiceState {
@@ -9,6 +9,9 @@ interface InvoiceState {
   invoice?: Invoice,
   isLoadingInvoice: boolean;
   invoiceError?: any;
+  generatedLink?: string;
+  isLoadingGenerateLink: boolean;
+  generateLinkError?: any;
 
 }
 
@@ -19,6 +22,9 @@ const initialState: InvoiceState = {
   invoice: undefined,
   isLoadingInvoice: false,
   invoiceError: undefined,
+  generatedLink: undefined,
+  isLoadingGenerateLink: false,
+  generateLinkError: undefined,
 
 };
 const InvoiceSlice = createSlice({
@@ -60,6 +66,30 @@ const InvoiceSlice = createSlice({
       .addCase(getInvoiceByOrderId.rejected, (state, { payload }) => {
         state.isLoadingInvoice = false;
         state.invoiceError = payload;
+        return state;
+
+      })
+
+
+      .addCase(generateLink.pending, (state) => {
+        state.isLoadingGenerateLink = true;
+        state.generateLinkError = null;
+        state.generatedLink = undefined;
+        return state;
+
+      })
+      .addCase(generateLink.fulfilled, (state, action) => {
+
+        state.isLoadingGenerateLink = false;
+        state.generateLinkError = null;
+        state.generatedLink = action.payload;
+        
+        return state;
+
+      })
+      .addCase(generateLink.rejected, (state, { payload }) => {
+        state.isLoadingGenerateLink = false;
+        state.generateLinkError = payload;
         return state;
 
       })

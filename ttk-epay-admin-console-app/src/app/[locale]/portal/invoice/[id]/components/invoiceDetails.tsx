@@ -11,6 +11,7 @@ import { useInvoice } from "@/lib/features/invoice/invoiceSelector";
 import { theme } from "@/styles/theme";
 import { CustomPrimaryButton } from "@/styles/components/buttonStyle";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
+import GenerateLinkPopover from "./generateLinkPopover";
 
 export default function InvoiceDetails({ invoiceOrderId }: { invoiceOrderId: any }) {
     const dispatch = useAppDispatch();
@@ -23,7 +24,8 @@ export default function InvoiceDetails({ invoiceOrderId }: { invoiceOrderId: any
 
 
     useEffect(() => {
-        dispatch(getInvoiceByOrderId(invoiceOrderId));
+        dispatch(getInvoiceByOrderId(invoiceOrderId));       
+        
     }, [registration, invoiceOrderId]);
 
     const handleUpdate = async (formValues: any) => {
@@ -56,23 +58,12 @@ export default function InvoiceDetails({ invoiceOrderId }: { invoiceOrderId: any
                     </Title>
                 </Col>
                 <Col span={24} style={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
-                    <Button
-                        style={{
-                            color: "black",
-                            backgroundColor: "rgba(218, 236, 247, 0.57)",
-                            border: "0px",
-                            paddingInline: 20,
-                            borderRadius: 16,
-                            fontSize: 15,
-                            height: 40
-                        }}
-
-                    >
-                        <LinkSimpleIcon size={20} style={{ color: "black" }} />
-                        {t("generateLink")}
-                    </Button>
+                  
                     {/* //TODO add popover to generate link button 
                      */}
+                    
+                        <GenerateLinkPopover orderId={invoice?.ORDER_ID} clientCode={invoice?.CLIENT_CODE} />
+                    
                 </Col>
             </Row>
             <Row>

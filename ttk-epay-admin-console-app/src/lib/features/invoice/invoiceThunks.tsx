@@ -57,14 +57,27 @@ export const updateInvoice = createAsyncThunk(
     }
   }
 )
+
 export const postInvoice = createAsyncThunk(
   "invoice/postInvoice",
   async (data: any, thunkAPI) => {
     try {
-
-      const response = { status: 200, data: data };
-
       const createdInvoice = await client.create_invoice(data);
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+)
+
+export const generateLink = createAsyncThunk(
+  "invoice/generateLink",
+  async (data: any, thunkAPI) => {
+    try {
+      console.log("data== ", data);
+      const generateLink = "https://ant.design/components/steps";
+
+      return generateLink
+
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }

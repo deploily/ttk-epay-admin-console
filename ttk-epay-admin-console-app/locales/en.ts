@@ -38,6 +38,10 @@ export default {
   "invoice.productName": "Product name",
   "invoice.updateInvoice": "Update invoice",
   "invoice.saveInvoice": "Save invoice",
+  "invoice.error": "Error",
+  "invoice.success": "Success",
+  "invoice.addInvoiceSuccessMsg": "Invoice saved successfully.",
+  "invoice.updateInvoiceSuccessMsg": "Invoice updated successfully.",
 
   "payment.payment": "Payment",
   "payment.downloadList": "Download list",
@@ -59,6 +63,11 @@ export default {
   "payment.expiration": "Expiration",
   "payment.satimOrderId": "Satim Order id",
   "payment.responseCodeDescreption": "Response code descreption",
+  "payment.error": "Error",
+  "payment.success": "Success",
+  "payment.savePdfReceiptSuccessMsg": "PDF generated successfully.",
+
+  
 
   "claim.claim": "Claim",
   "claim.id": "id",

@@ -1,29 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { payment, paymentList } from "./data";
+import { payment } from "./data";
 const { ttk_epay } = require('@deploily/ttk-epay-nodejs-client');
+const client = new ttk_epay();
+// const fs = require('fs-extra')
 
 
 export const fetchPayment = createAsyncThunk(
   "payment/fetchPayment",
-  async (data:any, thunkAPI) => {
-    const endDate = new Date().toISOString();
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 30);
-    
-    
+  async (data: any, thunkAPI) => {
+
     try {
-      // Fetching payments from the last 30 days
       const payments = await client.get_payments({
         pageSize: data.pageSize,
         from_date: data.startDate,
         to_date: data.endDate
       });
 
-      // Assuming 'payments' is an array or object with a 'payments' field
-      
+
       return payments;
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching payments:", error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 )
@@ -45,7 +42,20 @@ export const getPaymentById = createAsyncThunk(
   }
 )
 
-const client = new ttk_epay();
+export const savePdfReceipt = createAsyncThunk(
+  "payment/savePdfReceipt",
+  async (satimOrderId: string, thunkAPI) => {
+    try {
+      const pdfData = await client.get_pdf_recipt(satimOrderId);
+      // fs.writeFileSync(`receipt_${satimOrderId}.pdf`, pdfData);
+      return pdfData;
+
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+)
+
 
 
 

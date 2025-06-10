@@ -1,5 +1,5 @@
 'use client'
-import { Button, Col, DatePicker, Row, Skeleton, Table } from "antd";
+import { Button, Col, DatePicker, message, notification, Row, Skeleton, Table } from "antd";
 import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../locales/client";
 import { DownloadSimpleIcon, FilePdfIcon, InvoiceIcon } from "@phosphor-icons/react";
@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { usePayment } from "@/lib/features/payment/paymentSelector";
-import { fetchPayment } from "@/lib/features/payment/paymentThunks";
+import { fetchPayment, savePdfReceipt } from "@/lib/features/payment/paymentThunks";
 import { Payment } from "@/lib/features/payment/paymentInterface";
 import dayjs from "dayjs";
 import { ColumnsType } from "antd/es/table";
@@ -26,8 +26,7 @@ export default function GetPayments() {
     const { RangePicker } = DatePicker;
     const [startDate, setStartDate] = useState(dayjs().subtract(30, 'day'));
     const [endDate, setEndDate] = useState(dayjs());
-
-
+    const [api, contextHolder] = notification.useNotification();
 
     const handleRangeChange = (dates: any) => {
         if (dates && dates.length === 2) {
@@ -54,11 +53,31 @@ export default function GetPayments() {
         }));
 
     }, [registration]);
+    
+   
+
+    const handleClick = async (satimOrderId: string) => {
+        try {
+          await dispatch(savePdfReceipt(satimOrderId)).unwrap();
+
+          api.success({
+            message: 'Succès',
+            description: 'PDF généré avec succès.',
+          });
+        } catch (error) {
+
+          api.error({
+            message: 'Erreur',
+            description: `${error}`,
+          });
+        }
+      };
+   
 
 
 
     const keysToColumn = () => {
-        const list = ["ID", "ACTION_CODE", "AMOUNT", "ORDER_NUMBER", "DATE"]
+        const list = ["ID", "ACTION_CODE", "AMOUNT", "ORDER_NUMBER", "SATIM_ORDER_ID", "DATE",]
 
         let columns: ColumnsType<any> = list.map((element: any, index) => {
             if (element === "DATE")
@@ -82,11 +101,13 @@ export default function GetPayments() {
             title: "",
             dataIndex: "",
             key: 6,
-            render: () =>
-                <div style={{ textAlign: "end", marginRight: 15 }}
-                    onClick={(e) => {
+            render: (element) =>
+                <div style={{ textAlign: "end", marginRight: 15, }}
+                    onClick={ (e) => {
                         e.stopPropagation();
-                        //TODO download receipt 
+                        handleClick(element.SATIM_ORDER_ID);
+                            
+                          
 
                     }} >
                     <FilePdfIcon size={24} color="black" style={{ cursor: 'pointer' }} />
@@ -144,6 +165,8 @@ export default function GetPayments() {
                     </Button>
                 </Col>
             </Row>
+
+            {contextHolder}
 
             <Table<Payment>
                 columns={isLoadingPaymentList ? skeletonColumns : paymentList && keysToColumn()}

@@ -2,12 +2,12 @@
 import { useAppDispatch } from "@/lib/hook";
 import { CustomInvoiceInput } from "@/styles/components/inputStyle";
 import { DownloadSimpleIcon, InvoiceIcon, LinkSimpleIcon } from "@phosphor-icons/react";
-import { Button, Checkbox, Col, Form, message, Result, Row, Skeleton } from "antd";
+import { Button, Col, Form, message, notification, Result, Row, Skeleton } from "antd";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import Title from "antd/es/typography/Title";
 import { useEffect } from "react";
 import { theme } from "@/styles/theme";
-import { getPaymentById } from "@/lib/features/payment/paymentThunks";
+import { getPaymentById, savePdfReceipt } from "@/lib/features/payment/paymentThunks";
 import { usePayment } from "@/lib/features/payment/paymentSelector";
 import dayjs from "dayjs";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
@@ -20,14 +20,32 @@ export default function PaymentDetails({ paymentId }: { paymentId: string }) {
     const [form] = Form.useForm();
     const { payment, paymentError, isLoadingPayment } = usePayment()
     const { registration } = useRegistration()
+    const [api, contextHolder] = notification.useNotification();
 
     useEffect(() => {
         dispatch(getPaymentById(paymentId));
     }, [registration]);
 
+    const handleClick = async (satimOrderId: string) => {
+        try {
+            await dispatch(savePdfReceipt(satimOrderId)).unwrap();
+
+            api.success({
+                message: t('success'),
+                description: t('savePdfReceiptSuccessMsg'),
+            });
+        } catch (error) {
+
+            api.error({
+                message: t('error'),
+                description: `${error}`,
+            });
+        }
+    };
 
     return (
         <>
+        {contextHolder}
             <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
                 <Col span={24} style={{ display: "flex", alignItems: "center" }}>
                     <InvoiceIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />
@@ -38,6 +56,7 @@ export default function PaymentDetails({ paymentId }: { paymentId: string }) {
                 <Col span={24} style={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
                     { //TODO download receipt 
                     }
+                    {!isLoadingPayment && payment &&
                     <Button
                         style={{
                             color: "black",
@@ -48,11 +67,18 @@ export default function PaymentDetails({ paymentId }: { paymentId: string }) {
                             fontSize: 15,
                             height: 40
                         }}
+                        onClick={(e) => {
+                            handleClick(payment.SATIM_ORDER_ID);
+                                
+                              
+    
+                        } }
 
                     >
                         <DownloadSimpleIcon size={20} style={{ color: "black" }} />
                         {t("downloadReceipt")}
                     </Button>
+}
                 </Col>
             </Row>
             <Row>

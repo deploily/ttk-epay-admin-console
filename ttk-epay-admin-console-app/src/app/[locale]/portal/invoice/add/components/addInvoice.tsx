@@ -2,7 +2,7 @@
 import { useAppDispatch } from "@/lib/hook";
 import { CustomInvoiceInput } from "@/styles/components/inputStyle";
 import { InvoiceIcon } from "@phosphor-icons/react";
-import { Checkbox, Col, Form, Row } from "antd";
+import { Checkbox, Col, Form, notification, Row } from "antd";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import Title from "antd/es/typography/Title";
 import { theme } from "@/styles/theme";
@@ -15,19 +15,33 @@ export default function AddInvoice() {
     const t = useScopedI18n('invoice')
     const [form] = Form.useForm();
     const router = useRouter();
+    const [api, contextHolder] = notification.useNotification();
 
 
 
     const handleFinish = async (values: any) => {
 
-        await dispatch(postInvoice({ ...values }))
-            .unwrap()
-        router.back()
+        try {
+            await dispatch(postInvoice({ ...values })).unwrap();
+
+            api.success({
+                message: t('success'),
+                description: t('addInvoiceSuccessMsg'),
+            });
+            setTimeout(() => router.back(), 2000);
+        } catch (error) {
+
+            api.error({
+                message: t('error'),
+                description: `${error}`,
+            });
+        }
 
     };
 
     return (
         <>
+            {contextHolder}
             <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
                 <Col span={24} style={{ display: "flex", alignItems: "center" }}>
                     <InvoiceIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />
@@ -37,11 +51,6 @@ export default function AddInvoice() {
                 </Col>
 
             </Row>
-            <Row>
-
-            </Row>
-
-
 
             <>
                 <Form

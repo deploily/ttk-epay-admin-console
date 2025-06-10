@@ -2,7 +2,7 @@
 import { useAppDispatch } from "@/lib/hook";
 import { CustomInvoiceInput } from "@/styles/components/inputStyle";
 import { InvoiceIcon, LinkSimpleIcon } from "@phosphor-icons/react";
-import { Button, Checkbox, Col, Form, message, Popover, Radio, Result, Row, Skeleton } from "antd";
+import { Button, Checkbox, Col, Form, message, notification, Popover, Radio, Result, Row, Skeleton } from "antd";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import Title from "antd/es/typography/Title";
 import { useEffect } from "react";
@@ -19,27 +19,35 @@ export default function InvoiceDetails({ invoiceOrderId }: { invoiceOrderId: any
     const [form] = Form.useForm();
     const { invoice, invoiceError, isLoadingInvoice } = useInvoice()
     const { registration } = useRegistration()
+    const [api, contextHolder] = notification.useNotification();
 
-    
+
     useEffect(() => {
         dispatch(getInvoiceByOrderId(invoiceOrderId));
     }, [registration, invoiceOrderId]);
 
-    const handleUpdate = (formValues: any) => {
+    const handleUpdate = async (formValues: any) => {
+        try {
+            await dispatch(updateInvoice({ ID: invoice?.ID, ...formValues })).unwrap();
 
-        dispatch(updateInvoice({ ID: invoice?.ID, ...formValues }))
-            .unwrap()
-        // .then(() => {
-        //     message.success(t("updateSuccess"));
-        // })
-        // .catch(() => {
-        //     message.error(t("updateError"));
-        // });
+            api.success({
+                message: t('success'),
+                description: t('updateInvoiceSuccessMsg'),
+            });
+        } catch (error) {
+
+            api.error({
+                message: t('error'),
+                description: `${error}`,
+            });
+        }
     };
-    
-    
+
+
     return (
         <>
+            {contextHolder}
+
             <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
                 <Col span={24} style={{ display: "flex", alignItems: "center" }}>
                     <InvoiceIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />

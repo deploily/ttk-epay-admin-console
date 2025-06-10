@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Payment, PaymentResponse } from "./paymentInterface";
-import { fetchPayment, getPaymentById } from "./paymentThunks";
+import { fetchPayment, getPaymentById, savePdfReceipt } from "./paymentThunks";
 
 
 interface PaymentState {
@@ -10,6 +10,10 @@ interface PaymentState {
   payment?: Payment,
   isLoadingPayment: boolean;
   paymentError?: any;
+  pdfReceipt?: any;
+  isLoadingPdfReceipt?: boolean;
+  pdfReceiptError?: any;
+
 
 
 }
@@ -21,6 +25,9 @@ const initialState: PaymentState = {
   payment: undefined,
   isLoadingPayment: false,
   paymentError: undefined,
+  pdfReceipt: undefined,
+  isLoadingPdfReceipt: false,
+  pdfReceiptError: undefined,
 
 };
 const PaymentSlice = createSlice({
@@ -56,6 +63,24 @@ const PaymentSlice = createSlice({
       .addCase(getPaymentById.rejected, (state, { payload }) => {
         state.isLoadingPayment = false;
         state.paymentError = payload;
+      })
+      
+      .addCase(savePdfReceipt.pending, (state) => {
+        state.isLoadingPdfReceipt = true;
+        state.pdfReceiptError = null;
+        return state
+      })
+      .addCase(savePdfReceipt.fulfilled, (state, action) => {
+        state.isLoadingPdfReceipt = false;
+        state.pdfReceiptError = null;
+        state.pdfReceipt = action.payload;
+        return state
+
+      })
+      .addCase(savePdfReceipt.rejected, (state, { payload }) => {
+        state.isLoadingPdfReceipt = false;
+        state.pdfReceiptError = payload;
+        return state
       })
 
 

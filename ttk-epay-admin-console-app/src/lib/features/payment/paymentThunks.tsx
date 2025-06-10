@@ -11,6 +11,7 @@ export const fetchPayment = createAsyncThunk(
 
     try {
       const payments = await client.get_payments({
+        pageNumber: data.numberPage,
         pageSize: data.pageSize,
         from_date: data.startDate,
         to_date: data.endDate

@@ -8,8 +8,9 @@ import { useScopedI18n } from '../../../../locales/client';
 import LocaleSwitcher from './localeSwitcher';
 import { useAppDispatch } from '@/lib/hook';
 import { getRegistration, setRegistration } from '@/lib/features/registration/registrationSlice';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useRegistration } from '@/lib/features/registration/registrationSelectors';
+import { log } from 'console';
 
 
 export default function RegistrationComponent() {
@@ -18,6 +19,10 @@ export default function RegistrationComponent() {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const { registration } = useRegistration()
+    const registrationParams = useSearchParams()
+    const urlParams = registrationParams.get('url')
+    const secretKeyParams = registrationParams.get('secretKey')
+    
 
     const onFinish = async (values: any) => {
         await dispatch(setRegistration(values))
@@ -27,7 +32,14 @@ export default function RegistrationComponent() {
     };
 
     useEffect(() => {
-        dispatch(getRegistration());
+        if(urlParams && secretKeyParams) {
+            dispatch(setRegistration({
+                url: urlParams,
+                secretKey: secretKeyParams,
+            }))
+        }
+        
+        else dispatch(getRegistration());
         
     }, [])
     

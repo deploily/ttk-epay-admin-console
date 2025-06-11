@@ -32,14 +32,6 @@ export default function GetPayments() {
         if (dates && dates.length === 2) {
             setStartDate(dates[0]);
             setEndDate(dates[1]);
-            dispatch(fetchPayment(
-                {
-                    numberPage: page,
-                    pageSize: pageSize,
-                    startDate: startDate.toISOString(),
-                    endDate: endDate.toISOString()
-                }
-            ))
         }
     };
 
@@ -52,27 +44,27 @@ export default function GetPayments() {
             endDate: endDate.toISOString()
         }));
 
-    }, [registration]);
-    
-   
+    }, [registration, page, pageSize, startDate, endDate]);
+
+
 
     const handleClick = async (satimOrderId: string) => {
         try {
-          await dispatch(savePdfReceipt(satimOrderId)).unwrap();
+            await dispatch(savePdfReceipt(satimOrderId)).unwrap();
 
-          api.success({
-            message: 'Succès',
-            description: 'PDF généré avec succès.',
-          });
+            api.success({
+                message: 'Succès',
+                description: 'PDF généré avec succès.',
+            });
         } catch (error) {
 
-          api.error({
-            message: 'Erreur',
-            description: `${error}`,
-          });
+            api.error({
+                message: 'Erreur',
+                description: `${error}`,
+            });
         }
-      };
-   
+    };
+
 
 
 
@@ -103,11 +95,11 @@ export default function GetPayments() {
             key: 6,
             render: (element) =>
                 <div style={{ textAlign: "end", marginRight: 15, }}
-                    onClick={ (e) => {
+                    onClick={(e) => {
                         e.stopPropagation();
                         handleClick(element.SATIM_ORDER_ID);
-                            
-                          
+
+
 
                     }} >
                     <FilePdfIcon size={24} color="black" style={{ cursor: 'pointer' }} />

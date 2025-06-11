@@ -12,6 +12,8 @@ import { Payment } from "@/lib/features/payment/paymentInterface";
 import dayjs from "dayjs";
 import { ColumnsType } from "antd/es/table";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
+import { CustomButton } from "@/styles/components/buttonStyle";
+import { theme } from "@/styles/theme";
 
 
 export default function GetPayments() {
@@ -54,7 +56,7 @@ export default function GetPayments() {
 
             api.success({
                 message: 'Succès',
-                description: 'PDF généré avec succès.',
+                description: t('savePdfReceiptSuccessMsg'),
             });
         } catch (error) {
 
@@ -123,8 +125,8 @@ export default function GetPayments() {
         <>
             <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
                 <Col span={24} style={{ display: "flex", alignItems: "center" }}>
-                    <InvoiceIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />
-                    <Title level={3} style={{ fontWeight: 700, color: 'rgba(0, 0, 0, 0.7)', marginBottom: 0, marginLeft: 2 }}>
+                    <InvoiceIcon size={32} style={{ color: theme.token.blackOverlay }} />
+                    <Title level={3} style={{ fontWeight: 700, color: theme.token.blackOverlay, marginBottom: 0, marginLeft: 2 }}>
                         {t("payment")}
                     </Title>
                 </Col>
@@ -140,21 +142,10 @@ export default function GetPayments() {
                     />
                     { //TODO download list 
                     }
-                    <Button
-                        style={{
-                            color: "black",
-                            backgroundColor: "rgba(218, 236, 247, 0.57)",
-                            border: "0px",
-                            paddingInline: 20,
-                            borderRadius: 16,
-                            fontSize: 15,
-                            height: 40
-                        }}
-
-                    >
+                    <CustomButton>
                         <DownloadSimpleIcon size={20} style={{ color: "black" }} />
                         {t("downloadList")}
-                    </Button>
+                    </CustomButton>
                 </Col>
             </Row>
 

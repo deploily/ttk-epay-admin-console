@@ -1,29 +1,35 @@
 'use client'
 import { useAppDispatch } from "@/lib/hook";
 import { CustomInvoiceInput } from "@/styles/components/inputStyle";
-import { DownloadSimpleIcon, InvoiceIcon, LinkSimpleIcon } from "@phosphor-icons/react";
+import { DownloadSimpleIcon, InvoiceIcon } from "@phosphor-icons/react";
 import { Button, Col, Form, message, notification, Result, Row, Skeleton } from "antd";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import Title from "antd/es/typography/Title";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { theme } from "@/styles/theme";
 import { getPaymentById, savePdfReceipt } from "@/lib/features/payment/paymentThunks";
 import { usePayment } from "@/lib/features/payment/paymentSelector";
 import dayjs from "dayjs";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
+import { CustomButton } from "@/styles/components/buttonStyle";
+import { Payment } from "@/lib/features/payment/paymentInterface";
 
 
-export default function PaymentDetails({ paymentId }: { paymentId: string }) {
+export default function PaymentDetails({ paymentId }: { paymentId: number }) {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('payment')
     const translate = useI18n()
     const [form] = Form.useForm();
-    const { payment, paymentError, isLoadingPayment } = usePayment()
+    const { paymentList, paymentError, isLoadingPayment } = usePayment()
     const { registration } = useRegistration()
     const [api, contextHolder] = notification.useNotification();
+    const [payment, setPayment] = useState<Payment>();
 
     useEffect(() => {
-        dispatch(getPaymentById(paymentId));
+        // dispatch(getPaymentById(paymentId));
+        if(paymentList)
+         setPayment(paymentList.ITEMS.find((element: Payment) => element.ID == paymentId) );
+        
     }, [registration]);
 
     const handleClick = async (satimOrderId: string) => {
@@ -45,40 +51,26 @@ export default function PaymentDetails({ paymentId }: { paymentId: string }) {
 
     return (
         <>
-        {contextHolder}
+            {contextHolder}
             <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
                 <Col span={24} style={{ display: "flex", alignItems: "center" }}>
-                    <InvoiceIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />
-                    <Title level={3} style={{ fontWeight: 700, color: 'rgba(0, 0, 0, 0.7)', marginBottom: 0, marginLeft: 2 }}>
+                    <InvoiceIcon size={32} style={{ color: theme.token.blackOverlay }} />
+                    <Title level={3} style={{ fontWeight: 700, color: theme.token.blackOverlay, marginBottom: 0, marginLeft: 2 }}>
                         {t("payment")}
                     </Title>
                 </Col>
                 <Col span={24} style={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
-                    { //TODO download receipt 
-                    }
-                    {!isLoadingPayment && payment &&
-                    <Button
-                        style={{
-                            color: "black",
-                            backgroundColor: "rgba(218, 236, 247, 0.57)",
-                            border: "0px",
-                            paddingInline: 20,
-                            borderRadius: 16,
-                            fontSize: 15,
-                            height: 40
-                        }}
-                        onClick={(e) => {
-                            handleClick(payment.SATIM_ORDER_ID);
-                                
-                              
-    
-                        } }
 
-                    >
-                        <DownloadSimpleIcon size={20} style={{ color: "black" }} />
-                        {t("downloadReceipt")}
-                    </Button>
-}
+                    {!isLoadingPayment && payment &&
+                        <CustomButton
+                            onClick={(e) => {
+                                handleClick(payment.SATIM_ORDER_ID);
+                            }}
+                        >
+                            <DownloadSimpleIcon size={20} style={{ color: "black" }} />
+                            {t("downloadReceipt")}
+                        </CustomButton>
+                    }
                 </Col>
             </Row>
             <Row>

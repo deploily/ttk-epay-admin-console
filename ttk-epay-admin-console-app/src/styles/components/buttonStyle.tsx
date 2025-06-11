@@ -19,3 +19,24 @@ export const CustomPrimaryButton = styled(Button)` &&
     }
 }
 `;
+
+export const CustomButton = styled(Button)` &&
+ {  
+    color: ${theme.token.colorBlack};
+    background-color: ${theme.token.skyBlue};
+    border: none;
+    border-raduis:8px;
+    padding-inline: 20px;
+    font-size: 15px;
+    height: 40px;
+    transition: background-color 0.3s ease;
+                           
+
+     &:hover {
+      background-color: ${theme.token.skyBlue} !important;
+      color: ${theme.token.colorBlack} !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+}
+`;

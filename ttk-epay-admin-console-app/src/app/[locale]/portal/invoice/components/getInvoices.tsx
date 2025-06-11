@@ -10,6 +10,8 @@ import { useInvoice } from "@/lib/features/invoice/invoiceSelector";
 import { fetchInvoice, getInvoiceByOrderId } from "@/lib/features/invoice/invoiceThunks";
 import { Invoice } from "@/lib/features/invoice/invoiceInterface";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
+import { CustomButton } from "@/styles/components/buttonStyle";
+import { theme } from "@/styles/theme";
 
 export default function GetInvoices() {
     const dispatch = useAppDispatch();
@@ -25,14 +27,14 @@ export default function GetInvoices() {
         dispatch(fetchInvoice({ numberPage: page, pageSize: pageSize }));
 
     }, [registration]);
-const displayInvoiceByOrderId =(ORDER_ID:any)=>{
-            dispatch(getInvoiceByOrderId(ORDER_ID));
-    router.push(`/portal/invoice/${ORDER_ID}`)
+    const displayInvoiceByOrderId = (ORDER_ID: any) => {
+        dispatch(getInvoiceByOrderId(ORDER_ID));
+        router.push(`/portal/invoice/${ORDER_ID}`)
 
-}
+    }
 
     const keysToColumn = () => {
-        const list = [ "ID","ORDER_ID", "ORDER_NAME", "NET_AMOUNT", "CLIENT_CODE", "CLIENT_NAME", "IS_PAID"]
+        const list = ["ID", "ORDER_ID", "ORDER_NAME", "NET_AMOUNT", "CLIENT_CODE", "CLIENT_NAME", "IS_PAID"]
 
         let columns = list.map((element: any, index) => {
             if (element === "IS_PAID")
@@ -69,27 +71,16 @@ const displayInvoiceByOrderId =(ORDER_ID:any)=>{
         <>
             <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
                 <Col span={14} style={{ display: "flex", alignItems: "center" }}>
-                    <InvoiceIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />
-                    <Title level={3} style={{ fontWeight: 700, color: 'rgba(0, 0, 0, 0.7)', marginBottom: 0, marginLeft: 2 }}>
+                    <InvoiceIcon size={32} style={{ color: theme.token.blackOverlay }} />
+                    <Title level={3} style={{ fontWeight: 700, color: theme.token.blackOverlay, marginBottom: 0, marginLeft: 2 }}>
                         {t("invoice")}
                     </Title>
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
-                    <Button
-                        style={{
-                            color: "black",
-                            backgroundColor: "rgba(218, 236, 247, 0.57)",
-                            border: "0px",
-                            paddingInline: 20,
-                            borderRadius: 16,
-                            fontSize: 15,
-                            height: 40
-                        }}
-                        onClick={() => router.push(`/portal/invoice/add`)}
-                    >
+                    <CustomButton onClick={() => router.push(`/portal/invoice/add`)} >
                         <PlusIcon size={20} style={{ color: "black" }} />
                         {t("addInvoice")}
-                    </Button>
+                    </CustomButton>
                 </Col>
             </Row>
 
@@ -102,14 +93,14 @@ const displayInvoiceByOrderId =(ORDER_ID:any)=>{
                 scroll={{ y: 70 * 5 }}
                 rowKey={(record) => record.ID || `row-${Math.random()}`}
                 onRow={(record) => ({
-                    onClick: () => {displayInvoiceByOrderId(record.ORDER_ID)},
+                    onClick: () => { displayInvoiceByOrderId(record.ORDER_ID) },
                     style: { cursor: "pointer" },
                 })}
                 pagination={{
                     total: ((invoiceList?.TOTALPAGES || 0) * pageSize),
                     current: page,
                     pageSize: pageSize,
-                    showSizeChanger: true, 
+                    showSizeChanger: true,
                     pageSizeOptions: [5, 10, 20, 100],
                     onChange: (newPage, newPageSize) => {
                         setPage(newPage)

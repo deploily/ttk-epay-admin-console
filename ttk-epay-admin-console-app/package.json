@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.2",
-    "@deploily/ttk-epay-nodejs-client": "^1.0.4",
+    "@deploily/ttk-epay-nodejs-client": "^1.0.5",
     "@phosphor-icons/react": "^2.1.10",
     "@reduxjs/toolkit": "^2.8.2",
     "antd": "^5.25.3",

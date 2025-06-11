@@ -2,8 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { payment } from "./data";
 const { ttk_epay } = require('@deploily/ttk-epay-nodejs-client');
 const client = new ttk_epay();
-// const fs = require('fs-extra')
-
 
 export const fetchPayment = createAsyncThunk(
   "payment/fetchPayment",
@@ -43,19 +41,29 @@ export const getPaymentById = createAsyncThunk(
   }
 )
 
+
 export const savePdfReceipt = createAsyncThunk(
   "payment/savePdfReceipt",
   async (satimOrderId: string, thunkAPI) => {
     try {
-      const pdfData = await client.get_pdf_recipt(satimOrderId);
-      // fs.writeFileSync(`receipt_${satimOrderId}.pdf`, pdfData);
-      return pdfData;
+      const pdfData = await client.get_pdf_recipt(satimOrderId); // Assure-toi que c’est un `Blob` ou `ArrayBuffer`
 
+      const blob = new Blob([pdfData], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `receipt_${satimOrderId}.pdf`;
+      link.click();
+
+      window.URL.revokeObjectURL(url);
+
+      return "Downloaded successfully";
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
-)
+);
 
 
 

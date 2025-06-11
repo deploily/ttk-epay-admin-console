@@ -20,7 +20,7 @@ export default function ClaimDetails({ claimId }: { claimId: string }) {
 
     useEffect(() => {
         dispatch(getClaimById(claimId));
-    }, [registration]);
+    }, [registration,claimId]);
 
 
     return (

@@ -1,12 +1,11 @@
 "use client";
-import { Button, Dropdown, Layout, Menu, Space } from "antd";
+import { Layout, Menu } from "antd";
 import React, { useState } from "react";
-import { SignOut, ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { ArrowLeftIcon, ArrowRightIcon, CaretUp, User } from "@phosphor-icons/react";
-import Link from "next/link";
+import { ArrowLeftIcon, ArrowRightIcon, } from "@phosphor-icons/react";
 import { menuItems } from "./menuItem";
 import { useI18n, useScopedI18n } from "../../../../../locales/client";
 import { usePathname } from "next/navigation";
+import { theme } from "@/styles/theme";
 
 const { Sider } = Layout;
 
@@ -32,8 +31,8 @@ export function MainSideBar() {
       width="225px"
       style={{
         lineHeight: "120px",
-        color: "#fff",
-        background: "rgba(218, 236, 247, 0.2)",
+        color: theme.token.colorWhite,
+        background: theme.token.whisperBlue,
         display: "flex",
         flexDirection: "column",
       }}
@@ -52,15 +51,14 @@ export function MainSideBar() {
           width: "100%",
           textAlign: "center",
           cursor: "pointer",
-          color: "#fff",
-          background: "rgba(218, 236, 247, 0.2)",
+          color: theme.token.colorWhite,
+          background: theme.token.whisperBlue,
           padding: "10px",
           marginTop: "auto",
           position: "absolute",
           bottom: "8px",
           display: "inline-grid"
         }}
-
       >
 
         <div
@@ -69,24 +67,20 @@ export function MainSideBar() {
             display: "flex",
             alignItems: "center",
             cursor: "pointer",
-            height: 40, // fixe la hauteur pour éviter les sauts visuels
+            height: 40,
           }}
         >
           {collapsed ? (
-            <ArrowRightIcon size={24} color="#7D7D7D" />
+            <ArrowRightIcon size={24} color={theme.token.neutralGray} />
           ) : (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <ArrowLeftIcon size={24} color="#7D7D7D" />
-              <div style={{ paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>
+              <ArrowLeftIcon size={24} color={theme.token.neutralGray} />
+              <div style={{ paddingLeft: 10, fontSize: 16, color: theme.token.neutralGray }}>
                 {"Collapse"}
               </div>
             </div>
           )}
         </div>
-
-
-
-
       </div>
     </Sider>
   );

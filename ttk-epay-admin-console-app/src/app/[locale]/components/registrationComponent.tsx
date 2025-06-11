@@ -11,6 +11,7 @@ import { getRegistration, setRegistration } from '@/lib/features/registration/re
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRegistration } from '@/lib/features/registration/registrationSelectors';
 import { log } from 'console';
+import { theme } from '@/styles/theme';
 
 
 export default function RegistrationComponent() {
@@ -85,7 +86,7 @@ export default function RegistrationComponent() {
                                     style={{ height: 40, borderRadius: 8 }}
                                     suffix={
                                         <Tooltip title={t('urlInformation')}>
-                                            <QuestionIcon size={24} style={{ color: 'rgba(0,0,0,.45)' }} />
+                                            <QuestionIcon size={24} style={{ color: theme.token.smokyBlack }} />
                                         </Tooltip>
                                     }
                                 />
@@ -99,7 +100,7 @@ export default function RegistrationComponent() {
                                     style={{ height: 40, borderRadius: 8, marginTop: 15 }}
                                     suffix={
                                         <Tooltip title={t('secretKeyInformation')}>
-                                            <QuestionIcon size={24} style={{ color: 'rgba(0,0,0,.45)' }} />
+                                            <QuestionIcon size={24} style={{ color: theme.token.smokyBlack}} />
                                         </Tooltip>
                                     }
                                 />
@@ -109,8 +110,8 @@ export default function RegistrationComponent() {
                                 <Row style={{ display: "flex", justifyContent: "center" }} >
                                     <Button htmlType="submit"
                                         style={{
-                                            color: "#ffff",
-                                            backgroundColor: "#5394CC",
+                                            color: theme.token.colorWhite,
+                                            backgroundColor: theme.token.coolBlue,
                                             padding: 10,
                                             marginTop: 15,
                                             borderRadius: 8,

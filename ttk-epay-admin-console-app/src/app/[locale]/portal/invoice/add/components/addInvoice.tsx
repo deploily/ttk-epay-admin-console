@@ -44,8 +44,8 @@ export default function AddInvoice() {
             {contextHolder}
             <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
                 <Col span={24} style={{ display: "flex", alignItems: "center" }}>
-                    <InvoiceIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />
-                    <Title level={3} style={{ fontWeight: 700, color: 'rgba(0, 0, 0, 0.7)', marginBottom: 0, marginLeft: 2 }}>
+                    <InvoiceIcon size={32} style={{ color: theme.token.blackOverlay }} />
+                    <Title level={3} style={{ fontWeight: 700, color: theme.token.blackOverlay, marginBottom: 0, marginLeft: 2 }}>
                         {t("invoice")}
                     </Title>
                 </Col>

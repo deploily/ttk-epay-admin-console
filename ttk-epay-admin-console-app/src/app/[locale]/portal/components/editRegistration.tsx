@@ -8,6 +8,7 @@ import { useAppDispatch } from '@/lib/hook';
 import { getRegistration, setRegistration } from '@/lib/features/registration/registrationSlice';
 import { useScopedI18n } from "../../../../../locales/client";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
+import { theme } from "@/styles/theme";
 
 export default function EditRegistration({ isModalOpen, setIsModalOpen }: { isModalOpen: boolean, setIsModalOpen: any }) {
     const t = useScopedI18n('registration')
@@ -61,7 +62,7 @@ export default function EditRegistration({ isModalOpen, setIsModalOpen }: { isMo
                             style={{ height: 40, borderRadius: 8, marginTop:20 }}
                             suffix={
                                 <Tooltip title={t('urlInformation')}>
-                                    <QuestionIcon size={24} style={{ color: 'rgba(0,0,0,.45)' }} />
+                                    <QuestionIcon size={24} style={{ color: theme.token.smokyBlack }} />
                                 </Tooltip>
                             }
                         />
@@ -75,7 +76,7 @@ export default function EditRegistration({ isModalOpen, setIsModalOpen }: { isMo
                             style={{ height: 40, borderRadius: 8, marginTop: 5 }}
                             suffix={
                                 <Tooltip title={t('secretKeyInformation')}>
-                                    <QuestionIcon size={24} style={{ color: 'rgba(0,0,0,.45)' }} />
+                                    <QuestionIcon size={24} style={{ color: theme.token.smokyBlack }} />
                                 </Tooltip>
                             }
                         />
@@ -85,8 +86,8 @@ export default function EditRegistration({ isModalOpen, setIsModalOpen }: { isMo
                         <Row style={{ display: "flex", justifyContent: "center" }} >
                             <Button htmlType="submit"
                                 style={{
-                                    color: "#ffff",
-                                    backgroundColor: "#5394CC",
+                                    color: theme.token.colorWhite,
+                                    backgroundColor: theme.token.coolBlue,
                                     padding: 10,
                                     marginTop: 5,
                                     borderRadius: 8,

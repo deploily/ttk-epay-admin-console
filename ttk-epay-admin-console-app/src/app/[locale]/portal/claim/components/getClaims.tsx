@@ -12,6 +12,7 @@ import { useClaim } from "@/lib/features/claim/claimSelector";
 import { fetchClaim } from "@/lib/features/claim/claimThunks";
 import { Claim } from "@/lib/features/claim/claimInterface";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
+import { theme } from "@/styles/theme";
 
 
 export default function GetClaims() {
@@ -74,8 +75,8 @@ export default function GetClaims() {
         <>
             <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
                 <Col span={14} style={{ display: "flex", alignItems: "center" }}>
-                    <TicketIcon size={32} style={{ color: 'rgba(0, 0, 0, 0.7)' }} />
-                    <Title level={3} style={{ fontWeight: 700, color: 'rgba(0, 0, 0, 0.7)', marginBottom: 0, marginLeft: 2 }}>
+                    <TicketIcon size={32} style={{ color: theme.token.blackOverlay }} />
+                    <Title level={3} style={{ fontWeight: 700, color: theme.token.blackOverlay, marginBottom: 0, marginLeft: 2 }}>
                         {t("claim")}
                     </Title>
                 </Col>

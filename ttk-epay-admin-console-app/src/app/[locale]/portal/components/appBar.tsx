@@ -8,9 +8,8 @@ import LocaleSwitcher from "@/app/[locale]/components/localeSwitcher";
 import { GearIcon, ListIcon } from "@phosphor-icons/react";
 import { MainSideBarMobile } from "./sideBar";
 import Link from "next/link";
-import { useAppDispatch } from "@/lib/hook";
-import { useRouter } from "next/navigation";
 import EditRegistration from "./editRegistration";
+import { theme } from "@/styles/theme";
 
 
 
@@ -35,7 +34,7 @@ export function AppAppBarDesktop() {
     <>
       <Header
         style={{
-          backgroundColor: "rgba(218, 236, 247, 0.2)",
+          backgroundColor:theme.token.whisperBlue,
           backgroundImage: "none",
           display: "flex",
           justifyContent: "center",
@@ -86,7 +85,6 @@ export function AppAppBarDesktop() {
 }
 
 export function AppAppBarMobile() {
-  const [theme] = useState("dark");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -107,15 +105,14 @@ export function AppAppBarMobile() {
     <>
       <Header
         style={{
-          backgroundColor: "rgba(218, 236, 247, 0.2)",
+          backgroundColor: theme.token.whisperBlue,
           backgroundImage: "none",
           display: "flex",
           justifyContent: "center",
           lineHeight: "0px",
           height: "70px",
           padding: "0px",
-          boxShadow:
-            theme === "dark" ? "0 4px 8px rgba(0, 0, 0, 0.25)" : "0 4px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Row align="middle" justify="space-between" style={{ width: "100%" }}>

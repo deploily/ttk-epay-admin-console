@@ -15,6 +15,8 @@ import { useScopedI18n } from '../../../../../../../locales/client';
 import { useAppDispatch } from '@/lib/hook';
 import { generateLink } from '@/lib/features/invoice/invoiceThunks';
 import { useInvoice } from '@/lib/features/invoice/invoiceSelector';
+import { theme } from '@/styles/theme';
+import { CustomButton } from '@/styles/components/buttonStyle';
 
 export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: any, clientCode: any }) {
     const [open, setOpen] = useState(false);
@@ -93,20 +95,12 @@ export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: 
                 onOpenChange={handleOpenChange}
                 align={{ offset: [-10, 0] }}
             >
-                <Button
-                    style={{
-                        color: "black",
-                        backgroundColor: "rgba(218, 236, 247, 0.57)",
-                        border: "0px",
-                        paddingInline: 20,
-                        borderRadius: 16,
-                        fontSize: 15,
-                        height: 40
-                    }}
+                <CustomButton
+                   
                 >
                     <LinkSimpleIcon size={20} style={{ color: "black", marginRight: 8 }} />
                     {t("generateLink")}
-                </Button>
+                </CustomButton>
             </Popover>
         </Space>
     );

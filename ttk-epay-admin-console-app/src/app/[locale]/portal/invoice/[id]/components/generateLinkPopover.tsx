@@ -22,6 +22,12 @@ export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: 
     const t = useScopedI18n('invoice');
     const dispatch = useAppDispatch();
     const { generatedLink, generateLinkError } = useInvoice()
+    const links = {
+        whatsapp: `https://web.whatsapp.com/send?text=${generatedLink}`,
+        messenger: `https://www.facebook.com/share.php?u=${generatedLink}`,
+        linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${generatedLink}`,
+        gmail: `mailto:?subject=Regarde ceci&body=${generatedLink}`
+    };
 
     useEffect(() => {
         dispatch(generateLink({ orderId: orderId, clientCode: clientCode }))
@@ -33,7 +39,7 @@ export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: 
 
             setOpen(newOpen);
             if (!newOpen) setShowSocials(false);
-}
+        }
     };
 
     const handleCopy = (value: string) => {
@@ -68,12 +74,11 @@ export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: 
             />
 
             {showSocials && (
-                <Space wrap style={{ display: "flex", justifyContent: "end" }}>
-                    <Button icon={<WhatsappLogoIcon color='black' size={24} />} />
-                    <Button icon={<MessengerLogoIcon color='black' size={24} />} />
-                    <Button icon={<LinkedinLogoIcon color='black' size={24} />} />
-                    <Button icon={<InstagramLogoIcon color='black' size={24} />} />
-                    <Button icon={<EnvelopeSimpleIcon color='black' size={24} />} />
+                <Space wrap style={{ display: "flex", justifyContent: "end" }}>  
+                    <Button href={links.whatsapp} target="_blank" rel="noopener noreferrer" icon={<WhatsappLogoIcon color='black' size={24} />} />
+                    <Button href={links.messenger} target="_blank" rel="noopener noreferrer" icon={<MessengerLogoIcon color='black' size={24} />} />
+                    <Button href={links.linkedin} target="_blank" rel="noopener noreferrer" icon={<LinkedinLogoIcon color='black' size={24} />} />
+                    <Button href={links.gmail} target="_blank" rel="noopener noreferrer" icon={<EnvelopeSimpleIcon color='black' size={24} />} />
                 </Space>
             )}
         </Space>
@@ -106,3 +111,4 @@ export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: 
         </Space>
     );
 }
+

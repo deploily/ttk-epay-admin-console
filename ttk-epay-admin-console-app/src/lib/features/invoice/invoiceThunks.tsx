@@ -73,14 +73,13 @@ export const generateLink = createAsyncThunk(
   "invoice/generateLink",
   async (data: any, thunkAPI) => {
     try {
-      console.log("data== ", data);
-      const generateLink = "https://ant.design/components/steps";
-
-      return generateLink
+      const link = await client.generate_link('15', 15);
+      return link
 
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }
+
   }
 )
 

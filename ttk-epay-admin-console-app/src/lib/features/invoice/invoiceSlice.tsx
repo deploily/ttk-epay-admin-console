@@ -5,7 +5,7 @@ import { Invoice, InvoiceResponse } from "./invoiceInterface";
 interface InvoiceState {
   invoiceList?: InvoiceResponse;
   isLoadingInvoiceList: boolean;
-  invoiceErrorList?: any;
+  invoiceListError?: any;
   invoice?: Invoice,
   isLoadingInvoice: boolean;
   invoiceError?: any;
@@ -18,7 +18,7 @@ interface InvoiceState {
 const initialState: InvoiceState = {
   invoiceList: undefined,
   isLoadingInvoiceList: false,
-  invoiceErrorList: undefined,
+  invoiceListError: undefined,
   invoice: undefined,
   isLoadingInvoice: false,
   invoiceError: undefined,
@@ -38,13 +38,13 @@ const InvoiceSlice = createSlice({
       })
       .addCase(fetchInvoice.fulfilled, (state, action) => {
         state.isLoadingInvoiceList = false;
-        state.invoiceErrorList = null;
+        state.invoiceListError = null;
         state.invoiceList = action.payload;
 
       })
       .addCase(fetchInvoice.rejected, (state, { payload }) => {
         state.isLoadingInvoiceList = false;
-        state.invoiceErrorList = payload;
+        state.invoiceListError = payload;
       })
 
       .addCase(getInvoiceByOrderId.pending, (state) => {

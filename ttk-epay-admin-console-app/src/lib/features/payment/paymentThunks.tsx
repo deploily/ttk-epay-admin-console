@@ -1,12 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { payment } from "./data";
+import { RootState } from "@/lib/store";
 const { ttk_epay } = require('@deploily/ttk-epay-nodejs-client');
-const client = new ttk_epay();
+
 
 export const fetchPayment = createAsyncThunk(
   "payment/fetchPayment",
   async (data: any, thunkAPI) => {
-
+    const state = thunkAPI.getState() as RootState
+    const client = new ttk_epay(state.registration.registration?.url);
+    console.log("client=== ", client);
+    
     try {
       const payments = await client.get_payments({
         pageNumber: data.numberPage,
@@ -45,6 +49,8 @@ export const getPaymentById = createAsyncThunk(
 export const savePdfReceipt = createAsyncThunk(
   "payment/savePdfReceipt",
   async (satimOrderId: string, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState
+    const client = new ttk_epay(state.registration.registration?.url);
     try {
       const pdfData = await client.get_pdf_recipt(satimOrderId); // Assure-toi que c’est un `Blob` ou `ArrayBuffer`
 

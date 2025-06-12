@@ -53,7 +53,7 @@ export default function ClaimDetails({ claimId }: { claimId: string }) {
                         marginBottom: 16, gap: "10px", alignItems: 'center', flexDirection: "row",
                         display: "flex"
                     }}>
-                        <Title level={4} style={{ color: 'black', margin: 0, fontWeight: 500 }}>
+                        <Title level={4} style={{ color: theme.token.colorBlack, margin: 0, fontWeight: 500 }}>
                             {claim.title}
                         </Title>
 
@@ -76,7 +76,7 @@ export default function ClaimDetails({ claimId }: { claimId: string }) {
                     >
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
                             <div style={{ flex: 1 }}>
-                                <Text style={{ color: 'black' }}>
+                                <Text style={{ color: theme.token.colorBlack }}>
                                     {claim.description}
                                 </Text>
                             </div>

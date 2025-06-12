@@ -24,12 +24,6 @@ export function AppAppBarDesktop() {
   };
 
 
-  // const settingClick = () => {
-  //   dispatch(removeRegistration())
-  //   router.push('/')
-
-  // }
-
   return (
     <>
       <Header
@@ -112,7 +106,7 @@ export function AppAppBarMobile() {
           lineHeight: "0px",
           height: "70px",
           padding: "0px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: `0 4px 8px ${theme.token.ghostBlack}`,
         }}
       >
         <Row align="middle" justify="space-between" style={{ width: "100%" }}>
@@ -148,7 +142,7 @@ export function AppAppBarMobile() {
                 <LocaleSwitcher />
                 <GearIcon size={24} style={{ cursor: "pointer" }} onClick={showModal} />
                 <EditRegistration isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-                <ListIcon size={28} style={{ color: "black" }} onClick={showDrawer} />
+                <ListIcon size={28} style={{ color: theme.token.colorBlack }} onClick={showDrawer} />
               </Row>
             </Col>
           </Row>

@@ -3,18 +3,16 @@
 import {Dropdown, Button, Space, Typography, Row, Col} from "antd";
 import {locales} from "@/config";
 import {useChangeLocale, useCurrentLocale} from "../../../../locales/client";
-import {useState} from "react";
-import {Globe, GlobeIcon} from "@phosphor-icons/react";
+import {GlobeIcon} from "@phosphor-icons/react";
+import { theme } from "@/styles/theme";
 
 export default function LocaleSwitcher() {
   const changeLocale = useChangeLocale();
   const locale = useCurrentLocale();
-  const [theme] = useState("dark");
 
   const handleChange = (value: any) => {
     changeLocale(value);
   };
-
 
   const menuItems = locales.map((loc) => ({
     key: loc,
@@ -31,7 +29,7 @@ export default function LocaleSwitcher() {
         <Button
           style={{
             paddingInline:5,
-            border:"1px solid black"
+            border:`1px solid ${theme.token.colorBlack}`
           }}
         >
           <Row
@@ -40,10 +38,10 @@ export default function LocaleSwitcher() {
             style={{display: "flex", alignItems: "center", paddingLeft: "0px"}}
           >
             <Col>
-              <Typography style={{color:"black"}}>{locale.toUpperCase()}</Typography>
+              <Typography style={{color:theme.token.colorBlack}}>{locale.toUpperCase()}</Typography>
             </Col>
             <Col style={{display: "flex"}}>
-              <GlobeIcon color={"black"} size={20} />
+              <GlobeIcon color={theme.token.colorBlack} size={20} />
             </Col>
           </Row>
         </Button>

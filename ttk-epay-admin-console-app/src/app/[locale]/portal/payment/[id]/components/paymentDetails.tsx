@@ -67,7 +67,7 @@ export default function PaymentDetails({ paymentId }: { paymentId: number }) {
                                 handleClick(payment.SATIM_ORDER_ID);
                             }}
                         >
-                            <DownloadSimpleIcon size={20} style={{ color: "black" }} />
+                            <DownloadSimpleIcon size={20} style={{ color: theme.token.colorBlack }} />
                             {t("downloadReceipt")}
                         </CustomButton>
                     }

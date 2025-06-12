@@ -3,9 +3,10 @@ import { createI18nMiddleware } from "next-international/middleware";
 
 export default async function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+  
   const cspHeader = `
   default-src 'self';
-  connect-src 'self' https://pay.demo.deploily.cloud;
+  connect-src 'self' *;
   script-src 'self' 'unsafe-eval' 'unsafe-inline';
   style-src 'self' 'unsafe-inline';
   font-src 'self';
@@ -15,7 +16,7 @@ export default async function middleware(request: NextRequest) {
   frame-ancestors 'none';
   block-all-mixed-content;
   upgrade-insecure-requests;
-  frame-src 'self' https://pay.demo.deploily.cloud;
+  frame-src 'self' *;
 `;
   const contentSecurityPolicyHeaderValue = cspHeader
     .replace(/\s{2,}/g, " ")

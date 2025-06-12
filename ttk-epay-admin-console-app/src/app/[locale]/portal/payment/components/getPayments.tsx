@@ -1,8 +1,8 @@
 'use client'
-import { Button, Col, DatePicker, message, notification, Row, Skeleton, Table } from "antd";
+import { Col, DatePicker, notification, Result, Row, Skeleton, Table } from "antd";
 import Title from "antd/es/typography/Title";
-import { useScopedI18n } from "../../../../../../locales/client";
-import { DownloadSimpleIcon, FilePdfIcon, InvoiceIcon } from "@phosphor-icons/react";
+import { useI18n, useScopedI18n } from "../../../../../../locales/client";
+import { DownloadSimpleIcon, FilePdfIcon, InvoiceIcon, Translate } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -19,8 +19,9 @@ import { theme } from "@/styles/theme";
 export default function GetPayments() {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('payment')
+    const translate = useI18n()
     const [columns] = useState([]);
-    const { paymentList, isLoadingPaymentList } = usePayment()
+    const { paymentList, isLoadingPaymentList, paymentErrorList } = usePayment()
     const router = useRouter();
     const { registration } = useRegistration()
     const [page, setPage] = useState(1);
@@ -104,7 +105,7 @@ export default function GetPayments() {
 
 
                     }} >
-                    <FilePdfIcon size={24} color="black" style={{ cursor: 'pointer' }} />
+                    <FilePdfIcon size={24} color={theme.token.colorBlack} style={{ cursor: 'pointer' }} />
                 </div>,
         });
 
@@ -143,45 +144,52 @@ export default function GetPayments() {
                     { //TODO download list 
                     }
                     <CustomButton>
-                        <DownloadSimpleIcon size={20} style={{ color: "black" }} />
+                        <DownloadSimpleIcon size={20} style={{ color: theme.token.colorBlack }} />
                         {t("downloadList")}
                     </CustomButton>
                 </Col>
             </Row>
 
             {contextHolder}
+            {!paymentErrorList &&
+                <Table<Payment>
+                    columns={isLoadingPaymentList ? skeletonColumns : paymentList && keysToColumn()}
+                    dataSource={isLoadingPaymentList ? Array(1).fill({ key: Math.random() }) : paymentList?.ITEMS}
+                    size="middle"
+                    className="custom-table"
+                    style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 }}
+                    scroll={{ y: 55 * 5 }}
+                    rowKey={(record) => record.ID || `row-${Math.random()}`}
+                    onRow={(record) => ({
+                        onClick: () => router.push(`/portal/payment/${record.ID}`),
+                        style: { cursor: "pointer" },
+                    })}
+                    pagination={{
+                        total: ((paymentList?.TOTALPAGES || 0) * pageSize),
+                        current: page,
+                        pageSize: pageSize,
+                        showSizeChanger: true,
+                        pageSizeOptions: [5, 10, 20, 100],
+                        onChange: (newPage, newPageSize) => {
+                            setPage(newPage)
+                            setPageSize(newPageSize);
+                            dispatch(fetchPayment({
+                                numberPage: newPage,
+                                pageSize: newPageSize,
+                                startDate: startDate.toISOString(),
+                                endDate: endDate.toISOString()
+                            }));
+                        },
+                    }}
 
-            <Table<Payment>
-                columns={isLoadingPaymentList ? skeletonColumns : paymentList && keysToColumn()}
-                dataSource={isLoadingPaymentList ? Array(1).fill({ key: Math.random() }) : paymentList?.ITEMS}
-                size="middle"
-                className="custom-table"
-                style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 }}
-                scroll={{ y: 55 * 5 }}
-                rowKey={(record) => record.ID || `row-${Math.random()}`}
-                onRow={(record) => ({
-                    onClick: () => router.push(`/portal/payment/${record.ID}`),
-                    style: { cursor: "pointer" },
-                })}
-                pagination={{
-                    total: ((paymentList?.TOTALPAGES || 0) * pageSize),
-                    current: page,
-                    pageSize: pageSize,
-                    showSizeChanger: true,
-                    pageSizeOptions: [5, 10, 20, 100],
-                    onChange: (newPage, newPageSize) => {
-                        setPage(newPage)
-                        setPageSize(newPageSize);
-                        dispatch(fetchPayment({
-                            numberPage: newPage,
-                            pageSize: newPageSize,
-                            startDate: startDate.toISOString(),
-                            endDate: endDate.toISOString()
-                        }));
-                    },
-                }}
-
-            />
+                />}
+            {!isLoadingPaymentList && paymentErrorList &&
+                <Result
+                    status="500"
+                    title={translate('error')}
+                    subTitle={translate('subTitleError')}
+                />
+            }
 
         </>
     )

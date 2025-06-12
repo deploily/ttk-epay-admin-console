@@ -1,7 +1,7 @@
 'use client'
-import { Button, Col, Row, Skeleton, Table } from "antd";
+import { Button, Col, Result, Row, Skeleton, Table } from "antd";
 import Title from "antd/es/typography/Title";
-import { useScopedI18n } from "../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../locales/client";
 import { InvoiceIcon, PlusIcon } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
@@ -16,8 +16,9 @@ import { theme } from "@/styles/theme";
 export default function GetInvoices() {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('invoice')
+    const translate = useI18n()
     const [columns] = useState([]);
-    const { invoiceList, isLoadingInvoiceList } = useInvoice()
+    const { invoiceList, isLoadingInvoiceList, invoiceListError } = useInvoice()
     const router = useRouter();
     const { registration } = useRegistration()
     const [page, setPage] = useState(1);
@@ -78,37 +79,44 @@ export default function GetInvoices() {
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
                     <CustomButton onClick={() => router.push(`/portal/invoice/add`)} >
-                        <PlusIcon size={20} style={{ color: "black" }} />
+                        <PlusIcon size={20} style={{ color: theme.token.colorBlack }} />
                         {t("addInvoice")}
                     </CustomButton>
                 </Col>
             </Row>
-
-            <Table<Invoice>
-                columns={isLoadingInvoiceList ? skeletonColumns : invoiceList && keysToColumn()}
-                dataSource={isLoadingInvoiceList ? Array(1).fill({ key: Math.random() }) : invoiceList?.ITEMS}
-                size="middle"
-                className="custom-table"
-                style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 }}
-                scroll={{ y: 70 * 5 }}
-                rowKey={(record) => record.ID || `row-${Math.random()}`}
-                onRow={(record) => ({
-                    onClick: () => { displayInvoiceByOrderId(record.ORDER_ID) },
-                    style: { cursor: "pointer" },
-                })}
-                pagination={{
-                    total: ((invoiceList?.TOTALPAGES || 0) * pageSize),
-                    current: page,
-                    pageSize: pageSize,
-                    showSizeChanger: true,
-                    pageSizeOptions: [5, 10, 20, 100],
-                    onChange: (newPage, newPageSize) => {
-                        setPage(newPage)
-                        setPageSize(newPageSize);
-                        dispatch(fetchInvoice({ numberPage: newPage, pageSize: newPageSize }));
-                    },
-                }}
-            />
+            {!invoiceListError &&
+                <Table<Invoice>
+                    columns={isLoadingInvoiceList ? skeletonColumns : invoiceList && keysToColumn()}
+                    dataSource={isLoadingInvoiceList ? Array(1).fill({ key: Math.random() }) : invoiceList?.ITEMS}
+                    size="middle"
+                    className="custom-table"
+                    style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 }}
+                    scroll={{ y: 70 * 5 }}
+                    rowKey={(record) => record.ID || `row-${Math.random()}`}
+                    onRow={(record) => ({
+                        onClick: () => { displayInvoiceByOrderId(record.ORDER_ID) },
+                        style: { cursor: "pointer" },
+                    })}
+                    pagination={{
+                        total: ((invoiceList?.TOTALPAGES || 0) * pageSize),
+                        current: page,
+                        pageSize: pageSize,
+                        showSizeChanger: true,
+                        pageSizeOptions: [5, 10, 20, 100],
+                        onChange: (newPage, newPageSize) => {
+                            setPage(newPage)
+                            setPageSize(newPageSize);
+                            dispatch(fetchInvoice({ numberPage: newPage, pageSize: newPageSize }));
+                        },
+                    }}
+                />}
+            {!isLoadingInvoiceList && invoiceListError &&
+                <Result
+                    status="500"
+                    title={translate('error')}
+                    subTitle={translate('subTitleError')}
+                />
+            }
 
         </>
     )

@@ -7,6 +7,7 @@ export const theme = {
       whisperBlue:"rgba(218, 236, 247, 0.2)",
       skyBlue:"rgba(218, 236, 247, 0.57)",
       neutralGray:"#7D7D7D",
+      ghostBlack:"rgba(0, 0, 0, 0.1)",
       blackOverlay:"rgba(0, 0, 0, 0.7)",
       smokyBlack:"rgba(0,0,0,.45))",
       
@@ -27,10 +28,7 @@ export const theme = {
         fontFamily: "Inter, sans-serif",
         titleMarginBottom: 8,
       },
-      Rate: {
-        starColor: "rgb(252,50,50)",
-      },
-     
+      
       algorithm: "dark",
       Button: {
         borderColorDisabled: "rgb(76,150,215)",

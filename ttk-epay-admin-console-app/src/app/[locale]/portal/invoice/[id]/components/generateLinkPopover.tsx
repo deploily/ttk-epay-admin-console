@@ -38,7 +38,6 @@ export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: 
 
     const handleOpenChange = async (newOpen: boolean) => {
         if (generatedLink) {
-
             setOpen(newOpen);
             if (!newOpen) setShowSocials(false);
         }

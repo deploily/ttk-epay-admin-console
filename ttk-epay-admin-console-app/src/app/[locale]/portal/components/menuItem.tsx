@@ -27,16 +27,16 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     ),
     icon: <CardholderIcon size={24} />,
   },
-  {
-    key: "claim",
-    label: (
-      <Link href="/portal/claim">
-        {" "}
-        <span style={labelStyle}>{scopedSidebar("claim")}</span>{" "}
-      </Link>
-    ),
-    icon: <TicketIcon size={24} />,
+  // {
+  //   key: "claim",
+  //   label: (
+  //     <Link href="/portal/claim">
+  //       {" "}
+  //       <span style={labelStyle}>{scopedSidebar("claim")}</span>{" "}
+  //     </Link>
+  //   ),
+  //   icon: <TicketIcon size={24} />,
 
-  },
+  // },
 
 ];

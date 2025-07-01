@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useInvoice } from "@/lib/features/invoice/invoiceSelector";
-import { fetchInvoice, getInvoiceByOrderId } from "@/lib/features/invoice/invoiceThunks";
+import { fetchInvoice, getInvoiceById } from "@/lib/features/invoice/invoiceThunks";
 import { Invoice } from "@/lib/features/invoice/invoiceInterface";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 import { CustomButton } from "@/styles/components/buttonStyle";
@@ -28,9 +28,9 @@ export default function GetInvoices() {
         dispatch(fetchInvoice({ numberPage: page, pageSize: pageSize }));
 
     }, [registration]);
-    const displayInvoiceByOrderId = (ORDER_ID: any) => {
-        dispatch(getInvoiceByOrderId(ORDER_ID));
-        router.push(`/portal/invoice/${ORDER_ID}`)
+    const displayInvoiceById = (ID: any) => {
+        dispatch(getInvoiceById(ID));
+        router.push(`/portal/invoice/${ID}`)
 
     }
 
@@ -94,7 +94,7 @@ export default function GetInvoices() {
                     scroll={{ y: 70 * 5 }}
                     rowKey={(record) => record.ID || `row-${Math.random()}`}
                     onRow={(record) => ({
-                        onClick: () => { displayInvoiceByOrderId(record.ORDER_ID) },
+                        onClick: () => { displayInvoiceById(record.ID) },
                         style: { cursor: "pointer" },
                     })}
                     pagination={{

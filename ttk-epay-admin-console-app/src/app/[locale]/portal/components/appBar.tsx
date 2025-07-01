@@ -39,17 +39,19 @@ export function AppAppBarDesktop() {
       >
         <Row align="middle" justify="space-between" style={{ width: "100%" }}>
           <Col style={{ flexGrow: 1 }}>
-            <Link href="/portal">
+            <Link href="/portal"
+             style={{ display: "flex", alignItems: "center", color:"#b42e12", fontSize: "20px", fontWeight: "bold" }}>
               <Image
-                src="/images/deploily-logo.png"
-                width={180}
-                height={44}
+                src="/images/ttk-epay-logo.png"
+                width={50}
+                height={50}
                 alt="logo-deploily"
                 style={{
-                  marginRight: "20px",
+                  marginRight: "5px",
                   cursor: "pointer",
                 }}
               />
+              TTK Epay
             </Link>
           </Col>
           <Row
@@ -113,7 +115,7 @@ export function AppAppBarMobile() {
           <Col style={{ flexGrow: 1 }}>
             <Link href="/portal">
               <Image
-                src="/images/deploily-logo.png"
+                src="/images/ttk-epay-logo.png"
                 width={180}
                 height={44}
                 alt="logo-deploily"

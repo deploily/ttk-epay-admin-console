@@ -60,9 +60,9 @@ export default function RegistrationComponent() {
                 <Col md={12} xs={24}>
                     <Col span={24} style={{ display: "flex", justifyContent: "center", marginTop: "10%", marginBottom: "15%" }}>
                         <Image
-                            src="/images/deploily-logo.png"
-                            width={256}
-                            height={63}
+                            src="/images/ttk-epay-logo.png"
+                            width={200}
+                            height={200}
                             alt="logo-deploily"
 
                         />

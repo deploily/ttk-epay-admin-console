@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchInvoice, generateLink, getInvoiceByOrderId } from "./invoiceThunks";
+import { fetchInvoice, generateLink, getInvoiceById } from "./invoiceThunks";
 import { Invoice, InvoiceResponse } from "./invoiceInterface";
 
 interface InvoiceState {
@@ -47,14 +47,14 @@ const InvoiceSlice = createSlice({
         state.invoiceListError = payload;
       })
 
-      .addCase(getInvoiceByOrderId.pending, (state) => {
+      .addCase(getInvoiceById.pending, (state) => {
         state.isLoadingInvoice = true;
         state.invoiceError = null;
         state.invoice = undefined;
         return state;
 
       })
-      .addCase(getInvoiceByOrderId.fulfilled, (state, action) => {
+      .addCase(getInvoiceById.fulfilled, (state, action) => {
 
         state.isLoadingInvoice = false;
         state.invoiceError = null;
@@ -63,7 +63,7 @@ const InvoiceSlice = createSlice({
         return state;
 
       })
-      .addCase(getInvoiceByOrderId.rejected, (state, { payload }) => {
+      .addCase(getInvoiceById.rejected, (state, { payload }) => {
         state.isLoadingInvoice = false;
         state.invoiceError = payload;
         return state;

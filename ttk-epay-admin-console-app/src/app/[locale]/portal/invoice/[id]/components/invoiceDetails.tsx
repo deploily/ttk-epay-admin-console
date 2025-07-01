@@ -6,7 +6,7 @@ import { Button, Checkbox, Col, Form, message, notification, Popover, Radio, Res
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import Title from "antd/es/typography/Title";
 import { useEffect } from "react";
-import { getInvoiceByOrderId, updateInvoice } from "@/lib/features/invoice/invoiceThunks";
+import { getInvoiceById, updateInvoice } from "@/lib/features/invoice/invoiceThunks";
 import { useInvoice } from "@/lib/features/invoice/invoiceSelector";
 import { theme } from "@/styles/theme";
 import { CustomPrimaryButton } from "@/styles/components/buttonStyle";
@@ -24,7 +24,7 @@ export default function InvoiceDetails({ invoiceOrderId }: { invoiceOrderId: any
 
 
     useEffect(() => {
-        dispatch(getInvoiceByOrderId(invoiceOrderId));       
+        dispatch(getInvoiceById(invoiceOrderId));       
         
     }, [registration, invoiceOrderId]);
 
@@ -59,8 +59,6 @@ export default function InvoiceDetails({ invoiceOrderId }: { invoiceOrderId: any
                 </Col>
                 <Col span={24} style={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
                   
-                    {/* //TODO add popover to generate link button 
-                     */}
                     
                         <GenerateLinkPopover orderId={invoice?.ORDER_ID} clientCode={invoice?.CLIENT_CODE} />
                     

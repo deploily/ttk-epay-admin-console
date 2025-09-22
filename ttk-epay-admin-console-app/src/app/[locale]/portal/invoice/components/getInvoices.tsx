@@ -22,7 +22,7 @@ export default function GetInvoices() {
     const router = useRouter();
     const { registration } = useRegistration()
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(10);
 
     useEffect(() => {
         dispatch(fetchInvoice({ numberPage: page, pageSize: pageSize }));
@@ -85,31 +85,36 @@ export default function GetInvoices() {
                 </Col>
             </Row>
             {!invoiceListError &&
-                <Table<Invoice>
-                    columns={isLoadingInvoiceList ? skeletonColumns : invoiceList && keysToColumn()}
-                    dataSource={isLoadingInvoiceList ? Array(1).fill({ key: Math.random() }) : invoiceList?.ITEMS}
-                    size="middle"
-                    className="custom-table"
-                    style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 }}
-                    scroll={{ y: 70 * 5 }}
-                    rowKey={(record) => record.ID || `row-${Math.random()}`}
-                    onRow={(record) => ({
-                        onClick: () => { displayInvoiceById(record.ID) },
-                        style: { cursor: "pointer" },
-                    })}
-                    pagination={{
-                        total: ((invoiceList?.TOTALPAGES || 0) * pageSize),
-                        current: page,
-                        pageSize: pageSize,
-                        showSizeChanger: true,
-                        pageSizeOptions: [5, 10, 20, 100],
-                        onChange: (newPage, newPageSize) => {
-                            setPage(newPage)
-                            setPageSize(newPageSize);
-                            dispatch(fetchInvoice({ numberPage: newPage, pageSize: newPageSize }));
-                        },
-                    }}
-                />}
+                <Row style={{ height: "100%" }}>
+                    <Table<Invoice>
+
+                        columns={isLoadingInvoiceList ? skeletonColumns : invoiceList && keysToColumn()}
+                        dataSource={isLoadingInvoiceList ? Array(1).fill({ key: Math.random() }) : invoiceList?.ITEMS}
+                        size="middle"
+                        className="custom-table"
+                        style={{ marginTop: 40, borderRadius: 0, paddingInline: 20, width: "100%" }}
+                        rowKey={(record) => record.ID || `row-${Math.random()}`}
+                        onRow={(record) => ({
+                            onClick: () => { displayInvoiceById(record.ID) },
+                            style: { cursor: "pointer" },
+                        })}
+
+                        pagination={{
+                            total: ((invoiceList?.TOTALPAGES || 0) * pageSize),
+                            current: page,
+                            pageSize: pageSize,
+                            showSizeChanger: true,
+                            pageSizeOptions: [10, 20, 50, 100],
+                            onChange: (newPage, newPageSize) => {
+                                setPage(newPage)
+                                setPageSize(newPageSize);
+                                dispatch(fetchInvoice({ numberPage: newPage, pageSize: newPageSize }));
+                            },
+                        }}
+                    />
+                </Row>
+            }
+
             {!isLoadingInvoiceList && invoiceListError &&
                 <Result
                     status="500"

@@ -7,6 +7,7 @@ export const fetchInvoice = createAsyncThunk(
   "invoice/getInvoices",
   async (page: any, thunkAPI) => {
     const state = thunkAPI.getState() as RootState
+    // TODO Add api_key as parameter  
     const client = new TtkEpay(state.registration.registration?.url);
     try {
       const response = await client.getInvoices(page.numberPage, page.pageSize);

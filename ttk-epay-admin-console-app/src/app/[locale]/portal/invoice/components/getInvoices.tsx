@@ -12,6 +12,7 @@ import { Invoice } from "@/lib/features/invoice/invoiceInterface";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 import { CustomButton } from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
+import { CustomStyledTable } from "@/styles/components/tableStyle";
 
 export default function GetInvoices() {
     const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ export default function GetInvoices() {
         dispatch(fetchInvoice({ numberPage: page, pageSize: pageSize }));
 
     }, [registration]);
+
     const displayInvoiceById = (ID: any) => {
         dispatch(getInvoiceById(ID));
         router.push(`/portal/invoice/${ID}`)
@@ -85,34 +87,35 @@ export default function GetInvoices() {
                 </Col>
             </Row>
             {!invoiceListError &&
-                <Row style={{ height: "100%" }}>
-                    <Table<Invoice>
+                <div >
+                    <CustomStyledTable<any>
 
                         columns={isLoadingInvoiceList ? skeletonColumns : invoiceList && keysToColumn()}
                         dataSource={isLoadingInvoiceList ? Array(1).fill({ key: Math.random() }) : invoiceList?.ITEMS}
                         size="middle"
                         className="custom-table"
                         style={{ marginTop: 40, borderRadius: 0, paddingInline: 20, width: "100%" }}
-                        rowKey={(record) => record.ID || `row-${Math.random()}`}
-                        onRow={(record) => ({
+                        rowKey={(record:Invoice) => record.ID || `row-${Math.random()}`}
+                        onRow={(record: Invoice) => ({
                             onClick: () => { displayInvoiceById(record.ID) },
                             style: { cursor: "pointer" },
                         })}
-
+                        scroll={{ y: 'calc(100vh - 300px)' }}
                         pagination={{
                             total: ((invoiceList?.TOTALPAGES || 0) * pageSize),
                             current: page,
                             pageSize: pageSize,
                             showSizeChanger: true,
                             pageSizeOptions: [10, 20, 50, 100],
-                            onChange: (newPage, newPageSize) => {
+                            onChange: (newPage: number, newPageSize:number) => {
                                 setPage(newPage)
                                 setPageSize(newPageSize);
                                 dispatch(fetchInvoice({ numberPage: newPage, pageSize: newPageSize }));
                             },
+                            style: { marginTop: 50 },
                         }}
                     />
-                </Row>
+                </div>
             }
 
             {!isLoadingInvoiceList && invoiceListError &&

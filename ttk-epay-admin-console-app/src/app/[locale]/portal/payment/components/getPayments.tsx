@@ -14,6 +14,7 @@ import { ColumnsType } from "antd/es/table";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 import { CustomButton } from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
+import { CustomStyledTable } from "@/styles/components/tableStyle";
 
 
 export default function GetPayments() {
@@ -152,37 +153,40 @@ export default function GetPayments() {
 
             {contextHolder}
             {!paymentErrorList &&
-                <Table<Payment>
-                    columns={isLoadingPaymentList ? skeletonColumns : paymentList && keysToColumn()}
-                    dataSource={isLoadingPaymentList ? Array(1).fill({ key: Math.random() }) : paymentList?.ITEMS}
-                    size="middle"
-                    className="custom-table"
-                    style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 }}
-                    scroll={{ y: 55 * 5 }}
-                    rowKey={(record) => record.ID || `row-${Math.random()}`}
-                    onRow={(record) => ({
-                        onClick: () => router.push(`/portal/payment/${record.ID}`),
-                        style: { cursor: "pointer" },
-                    })}
-                    pagination={{
-                        total: ((paymentList?.TOTALPAGES || 0) * pageSize),
-                        current: page,
-                        pageSize: pageSize,
-                        showSizeChanger: true,
-                        pageSizeOptions: [5, 10, 20, 100],
-                        onChange: (newPage, newPageSize) => {
-                            setPage(newPage)
-                            setPageSize(newPageSize);
-                            dispatch(fetchPayment({
-                                numberPage: newPage,
-                                pageSize: newPageSize,
-                                startDate: startDate.toISOString(),
-                                endDate: endDate.toISOString()
-                            }));
-                        },
-                    }}
+                <div>
+                <CustomStyledTable<any>
+                        columns={isLoadingPaymentList ? skeletonColumns : paymentList && keysToColumn()}
+                        dataSource={isLoadingPaymentList ? Array(1).fill({ key: Math.random() }) : paymentList?.ITEMS}
+                        size="middle"
+                        className="custom-table"
+                        style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 , }}
+                        scroll={{ y: 'calc(100vh - 300px)' }}
+                        rowKey={(record:any) => record.ID || `row-${Math.random()}`}
+                        onRow={(record:any) => ({
+                            onClick: () => router.push(`/portal/payment/${record.ID}`),
+                            style: { cursor: "pointer" },
+                        })}
+                        pagination={{
+                            total: ((paymentList?.TOTALPAGES || 0) * pageSize),
+                            current: page,
+                            pageSize: pageSize,
+                            showSizeChanger: true,
+                            pageSizeOptions: [5, 10, 20, 100],
+                            onChange: (newPage: any, newPageSize: any) => {
+                                setPage(newPage)
+                                setPageSize(newPageSize);
+                                dispatch(fetchPayment({
+                                    numberPage: newPage,
+                                    pageSize: newPageSize,
+                                    startDate: startDate.toISOString(),
+                                    endDate: endDate.toISOString()
+                                }));
+                            },
+                            style: { marginTop: 50 },
+                        }}
 
-                />}
+                    />
+                </div>}
             {!isLoadingPaymentList && paymentErrorList &&
                 <Result
                     status="500"

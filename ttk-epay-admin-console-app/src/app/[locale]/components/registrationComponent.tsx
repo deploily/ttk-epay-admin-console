@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect } from 'react';
-import { Button, Col, Form, Input, Row, Tooltip } from 'antd';
-import Image from 'next/image';
+import { Button, Col, Form, Image, Input, Row, Tooltip } from 'antd';
 import { FloppyDiskIcon, QuestionIcon } from '@phosphor-icons/react';
 import Link from 'next/link';
 import { useScopedI18n } from '../../../../locales/client';
@@ -23,7 +22,7 @@ export default function RegistrationComponent() {
     const registrationParams = useSearchParams()
     const urlParams = registrationParams.get('url')
     const secretKeyParams = registrationParams.get('secretKey')
-    
+
 
     const onFinish = async (values: any) => {
         await dispatch(setRegistration(values))
@@ -33,30 +32,30 @@ export default function RegistrationComponent() {
     };
 
     useEffect(() => {
-        if(urlParams && secretKeyParams) {
+        if (urlParams && secretKeyParams) {
             dispatch(setRegistration({
                 url: urlParams,
                 secretKey: secretKeyParams,
             }))
         }
-        
+
         else dispatch(getRegistration());
-        
+
     }, [])
-    
+
     useEffect(() => {
         if (registration) {
-          form.setFieldsValue({
-            url: registration.url,
-            secretKey: registration.secretKey,
-          });
+            form.setFieldsValue({
+                url: registration.url,
+                secretKey: registration.secretKey,
+            });
         }
-      }, [registration]);
+    }, [registration]);
 
     return (
         <>
             <div style={{ marginTop: 5, marginInline: 5, display: "flex", justifyContent: "start" }}> <LocaleSwitcher /></div>
-            <Row>
+            <Row gutter={[16, 16]} >
                 <Col md={12} xs={24}>
                     <Col span={24} style={{ display: "flex", justifyContent: "center", marginTop: "10%", marginBottom: "15%" }}>
                         <Image
@@ -100,7 +99,7 @@ export default function RegistrationComponent() {
                                     style={{ height: 40, borderRadius: 8, marginTop: 15 }}
                                     suffix={
                                         <Tooltip title={t('secretKeyInformation')}>
-                                            <QuestionIcon size={24} style={{ color: theme.token.smokyBlack}} />
+                                            <QuestionIcon size={24} style={{ color: theme.token.smokyBlack }} />
                                         </Tooltip>
                                     }
                                 />
@@ -135,14 +134,21 @@ export default function RegistrationComponent() {
                     </Col>
 
                 </Col>
-                <Col md={12} xs={24} style={{ display: "flex", alignItems: "center", justifyContent: "center" }} >
-                    <Image
-                        src="/images/capture-url.png"
-                        width={528}
-                        height={404}
-                        alt=""
+                <Col md={12} xs={24} style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingInline: 20 }} >
+                    
+                        <Image
+                            src="/images/capture-url.png"
+                            width={644}
+                            height={550}
+                            style={{
+                                maxWidth: "100%",
+                                height: "auto"
+                            }}
+                            preview={false}
+                            alt=""
 
-                    />
+                        />
+                    
                 </Col>
             </Row>
         </>

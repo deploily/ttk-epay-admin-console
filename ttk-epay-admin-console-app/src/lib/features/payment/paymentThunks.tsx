@@ -1,13 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "@/lib/store";
-const { TtkEpay } = require('@deploily/ttk-epay-nodejs-client');
-
+import { clientRegistration } from "../invoice/invoiceThunks";
 
 export const fetchPayment = createAsyncThunk(
   "payment/fetchPayment",
   async (data: any, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState
-    const client = new TtkEpay(state.registration.registration?.url);
+    const client = clientRegistration(thunkAPI)
     
     try {
       const payments = await client.getPayments({
@@ -16,7 +13,6 @@ export const fetchPayment = createAsyncThunk(
         from_date: data.startDate,
         to_date: data.endDate
       });
-
 
       return payments;
     } catch (error: any) {
@@ -29,9 +25,7 @@ export const fetchPayment = createAsyncThunk(
 export const getPaymentById = createAsyncThunk(
   "payment/getPaymentById",
   async (paymentId: string, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState
-    const client = new TtkEpay(state.registration.registration?.url);
-
+    const client = clientRegistration(thunkAPI)
     try {
       const payment = await client.getPaymentById(paymentId);
       return payment;
@@ -45,8 +39,8 @@ export const getPaymentById = createAsyncThunk(
 export const savePdfReceipt = createAsyncThunk(
   "payment/savePdfReceipt",
   async (satimOrderId: string, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState
-    const client = new TtkEpay(state.registration.registration?.url);
+    const client = clientRegistration(thunkAPI)
+
     try {
       const pdfData = await client.getPdfRecipt(satimOrderId); 
 

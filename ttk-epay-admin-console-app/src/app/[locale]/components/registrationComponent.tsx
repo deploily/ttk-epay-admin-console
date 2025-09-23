@@ -7,27 +7,25 @@ import { useScopedI18n } from '../../../../locales/client';
 import LocaleSwitcher from './localeSwitcher';
 import { useAppDispatch } from '@/lib/hook';
 import { getRegistration, setRegistration } from '@/lib/features/registration/registrationSlice';
-import { useRouter, useSearchParams } from 'next/navigation';
+import {  useSearchParams } from 'next/navigation';
 import { useRegistration } from '@/lib/features/registration/registrationSelectors';
-import { log } from 'console';
 import { theme } from '@/styles/theme';
+import { useLocaleRouter } from '@/lib/navigation';
 
 
 export default function RegistrationComponent() {
     const t = useScopedI18n('registration')
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
-    const router = useRouter();
+    const router = useLocaleRouter();
     const { registration } = useRegistration()
     const registrationParams = useSearchParams()
     const urlParams = registrationParams.get('url')
     const secretKeyParams = registrationParams.get('secretKey')
 
-
     const onFinish = async (values: any) => {
-        await dispatch(setRegistration(values))
+        await dispatch(setRegistration(values))      
         await router.push("/portal/invoice")
-
 
     };
 

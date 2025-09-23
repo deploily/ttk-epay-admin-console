@@ -3,7 +3,6 @@ import { useAppDispatch } from "@/lib/hook";
 import { CustomInvoiceInput } from "@/styles/components/inputStyle";
 import { InvoiceIcon, LinkSimpleIcon } from "@phosphor-icons/react";
 import { Button, Checkbox, Col, Form, message, notification, Popover, Radio, Result, Row, Skeleton } from "antd";
-import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import Title from "antd/es/typography/Title";
 import { useEffect } from "react";
 import { getInvoiceById, updateInvoice } from "@/lib/features/invoice/invoiceThunks";
@@ -12,8 +11,9 @@ import { theme } from "@/styles/theme";
 import { CustomPrimaryButton } from "@/styles/components/buttonStyle";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
 import GenerateLinkPopover from "./generateLinkPopover";
+import { useI18n, useScopedI18n } from "../../../../../../locales/client";
 
-export default function InvoiceDetails({ invoiceOrderId }: { invoiceOrderId: any }) {
+export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('invoice')
     const translate = useI18n()
@@ -24,9 +24,9 @@ export default function InvoiceDetails({ invoiceOrderId }: { invoiceOrderId: any
 
 
     useEffect(() => {
-        dispatch(getInvoiceById(invoiceOrderId));       
+        dispatch(getInvoiceById(invoicerId));       
         
-    }, [registration, invoiceOrderId]);
+    }, [registration, invoicerId]);
 
     const handleUpdate = async (formValues: any) => {
         try {

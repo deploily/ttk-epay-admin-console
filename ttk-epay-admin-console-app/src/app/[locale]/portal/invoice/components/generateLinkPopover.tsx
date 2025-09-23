@@ -11,12 +11,12 @@ import {
     WhatsappLogoIcon
 } from '@phosphor-icons/react';
 
-import { useScopedI18n } from '../../../../../../../locales/client';
 import { useAppDispatch } from '@/lib/hook';
 import { generateLink } from '@/lib/features/invoice/invoiceThunks';
 import { useInvoice } from '@/lib/features/invoice/invoiceSelector';
 import { theme } from '@/styles/theme';
 import { CustomButton } from '@/styles/components/buttonStyle';
+import { useScopedI18n } from '../../../../../../locales/client';
 
 export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: any, clientCode: any }) {
     const [open, setOpen] = useState(false);

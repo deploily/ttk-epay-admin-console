@@ -8,13 +8,13 @@ import Title from "antd/es/typography/Title";
 import { theme } from "@/styles/theme";
 import { CustomPrimaryButton } from "@/styles/components/buttonStyle";
 import { postInvoice } from "@/lib/features/invoice/invoiceThunks";
-import { useRouter } from "next/navigation";
+import { useLocaleRouter } from "@/lib/navigation";
 
 export default function AddInvoice() {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('invoice')
     const [form] = Form.useForm();
-    const router = useRouter();
+    const router = useLocaleRouter();
     const [api, contextHolder] = notification.useNotification();
 
 

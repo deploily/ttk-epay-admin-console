@@ -12,6 +12,7 @@ interface InvoiceState {
   generatedLink?: string;
   isLoadingGenerateLink: boolean;
   generateLinkError?: any;
+  
 
 }
 

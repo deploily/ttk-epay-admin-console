@@ -5,7 +5,6 @@ import { useI18n, useScopedI18n } from "../../../../../../locales/client";
 import { InvoiceIcon, PlusIcon } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useInvoice } from "@/lib/features/invoice/invoiceSelector";
 import { fetchInvoice, getInvoiceById } from "@/lib/features/invoice/invoiceThunks";
 import { Invoice } from "@/lib/features/invoice/invoiceInterface";
@@ -13,6 +12,7 @@ import { useRegistration } from "@/lib/features/registration/registrationSelecto
 import { CustomButton } from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
 import { CustomStyledTable } from "@/styles/components/tableStyle";
+import { useLocaleRouter } from "@/lib/navigation";
 
 export default function GetInvoices() {
     const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ export default function GetInvoices() {
     const translate = useI18n()
     const [columns] = useState([]);
     const { invoiceList, isLoadingInvoiceList, invoiceListError } = useInvoice()
-    const router = useRouter();
+    const router = useLocaleRouter();
     const { registration } = useRegistration()
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -32,7 +32,7 @@ export default function GetInvoices() {
 
     const displayInvoiceById = (ID: any) => {
         dispatch(getInvoiceById(ID));
-        router.push(`/portal/invoice/${ID}`)
+        router.push(`/portal/invoice?id=${ID}`)
 
     }
 

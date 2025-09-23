@@ -7,12 +7,14 @@ const labelStyle = {
   fontSize: "16px",
   fontWeight: 600,
 };
-
-export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
+export const menuItems = (scopedSidebar: any,  router: any): MenuProps["items"] => [
   {
     key: "invoice",
     label: (
-      <Link href="/portal/invoice">
+      <Link  href="" onClick={(e) => {
+        e.preventDefault();
+        router.push("/portal/invoice");
+      }}>
         <span style={labelStyle}>{scopedSidebar("invoice")}</span>
       </Link>
     ),
@@ -21,22 +23,15 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
   {
     key: "payment",
     label: (
-      <Link href="/portal/payment">
+      <Link href="" onClick={(e) => {
+        e.preventDefault();
+        router.push("/portal/payment");
+      }}>
         <span style={labelStyle}>{scopedSidebar("payment")}</span>
       </Link>
     ),
     icon: <CardholderIcon size={24} />,
   },
-  // {
-  //   key: "claim",
-  //   label: (
-  //     <Link href="/portal/claim">
-  //       {" "}
-  //       <span style={labelStyle}>{scopedSidebar("claim")}</span>{" "}
-  //     </Link>
-  //   ),
-  //   icon: <TicketIcon size={24} />,
-
-  // },
+  
 
 ];

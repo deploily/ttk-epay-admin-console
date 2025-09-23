@@ -5,7 +5,6 @@ import { useI18n, useScopedI18n } from "../../../../../../locales/client";
 import { DownloadSimpleIcon, FilePdfIcon, InvoiceIcon, Translate } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { usePayment } from "@/lib/features/payment/paymentSelector";
 import { fetchPayment, savePdfReceipt } from "@/lib/features/payment/paymentThunks";
 import { Payment } from "@/lib/features/payment/paymentInterface";
@@ -15,6 +14,7 @@ import { useRegistration } from "@/lib/features/registration/registrationSelecto
 import { CustomButton } from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
 import { CustomStyledTable } from "@/styles/components/tableStyle";
+import { useLocaleRouter } from "@/lib/navigation";
 
 
 export default function GetPayments() {
@@ -23,7 +23,7 @@ export default function GetPayments() {
     const translate = useI18n()
     const [columns] = useState([]);
     const { paymentList, isLoadingPaymentList, paymentErrorList } = usePayment()
-    const router = useRouter();
+    const router = useLocaleRouter();
     const { registration } = useRegistration()
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(5);
@@ -163,7 +163,7 @@ export default function GetPayments() {
                         scroll={{ y: 'calc(100vh - 300px)' }}
                         rowKey={(record:any) => record.ID || `row-${Math.random()}`}
                         onRow={(record:any) => ({
-                            onClick: () => router.push(`/portal/payment/${record.ID}`),
+                            onClick: () => router.push(`/portal/payment?id=${record.ID}`),
                             style: { cursor: "pointer" },
                         })}
                         pagination={{

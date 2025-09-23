@@ -14,7 +14,7 @@ export default {
     "sideBar.claim": "Réclamation",
 
     "invoice.invoice": "Facture",
-    "invoice.addInvoice": "Ajouterfacture",
+    "invoice.addInvoice": "Ajouter facture",
     "invoice.IS_PAID": "Statut",
     "invoice.paid": "Payé",
     "invoice.unpaid": "Impayé",

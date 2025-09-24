@@ -61,7 +61,11 @@ export default function RegistrationComponent() {
                             width={200}
                             height={200}
                             alt="logo-deploily"
-
+                            preview={false}
+                            style={{
+                                maxWidth: "100%",
+                                height: "auto"
+                            }}
                         />
                     </Col>
                     <Col span={24} >

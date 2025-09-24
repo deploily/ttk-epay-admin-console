@@ -42,7 +42,7 @@ export default {
   "invoice.success": "Success",
   "invoice.addInvoiceSuccessMsg": "Invoice saved successfully.",
   "invoice.updateInvoiceSuccessMsg": "Invoice updated successfully.",
-
+  "invoice.generateLinkErrorMsg": "Failed to generate link. Please try again.",
   "payment.payment": "Payment",
   "payment.downloadList": "Download list",
   "payment.actionCode": "Action code",

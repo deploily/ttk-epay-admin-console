@@ -45,6 +45,7 @@ export default {
     "invoice.success": "Succès",
     "invoice.addInvoiceSuccessMsg": "Facture enregistrée avec succès.",
     "invoice.updateInvoiceSuccessMsg": "Facture mise à jour avec succès.",
+    "invoice.generateLinkErrorMsg": "Échec de la génération du lien. Veuillez réessayer.",
 
     "payment.payment": "Paiement",
     "payment.downloadList": "Télécharger la liste",

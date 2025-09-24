@@ -95,19 +95,19 @@ export default function GetInvoices() {
                         size="middle"
                         className="custom-table"
                         style={{ marginTop: 40, borderRadius: 0, paddingInline: 20, width: "100%" }}
-                        rowKey={(record:Invoice) => record.ID || `row-${Math.random()}`}
+                        rowKey={(record: Invoice) => record.ID || `row-${Math.random()}`}
                         onRow={(record: Invoice) => ({
                             onClick: () => { displayInvoiceById(record.ID) },
                             style: { cursor: "pointer" },
                         })}
-                        scroll={{ y: 'calc(100vh - 300px)' }}
+                        scroll={{ y: 'calc(100vh - 320px)' }}
                         pagination={{
                             total: ((invoiceList?.TOTALPAGES || 0) * pageSize),
                             current: page,
                             pageSize: pageSize,
                             showSizeChanger: true,
                             pageSizeOptions: [10, 20, 50, 100],
-                            onChange: (newPage: number, newPageSize:number) => {
+                            onChange: (newPage: number, newPageSize: number) => {
                                 setPage(newPage)
                                 setPageSize(newPageSize);
                                 dispatch(fetchInvoice({ numberPage: newPage, pageSize: newPageSize }));

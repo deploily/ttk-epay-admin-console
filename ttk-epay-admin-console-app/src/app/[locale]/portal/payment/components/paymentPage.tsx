@@ -4,11 +4,11 @@ import { useSearchParams } from "next/navigation";
 import GetPayments from "./getPayments";
 import PaymentDetails from "./paymentDetails";
 
-export default function InvoicePage() {
+export default function PaymentPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
-  if (id) {
+  if (id) {    
     return <PaymentDetails paymentId={id} />;
   }
 

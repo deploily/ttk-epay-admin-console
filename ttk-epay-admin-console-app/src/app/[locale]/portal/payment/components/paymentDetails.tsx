@@ -20,16 +20,12 @@ export default function PaymentDetails({ paymentId }: { paymentId: string }) {
     const t = useScopedI18n('payment')
     const translate = useI18n()
     const [form] = Form.useForm();
-    const { paymentList, paymentError, isLoadingPayment } = usePayment()
+    const { payment, paymentError, isLoadingPayment } = usePayment()
     const { registration } = useRegistration()
     const [api, contextHolder] = notification.useNotification();
-    const [payment, setPayment] = useState<Payment>();
 
     useEffect(() => {
-        // dispatch(getPaymentById(paymentId));
-        if(paymentList)
-         setPayment(paymentList.ITEMS.find((element: Payment) => element.ID.toString() == paymentId) );
-        
+        dispatch(getPaymentById(paymentId));
     }, [registration]);
 
     const handleClick = async (satimOrderId: string) => {
@@ -63,9 +59,11 @@ export default function PaymentDetails({ paymentId }: { paymentId: string }) {
 
                     {!isLoadingPayment && payment &&
                         <CustomButton
+                            disabled={payment.ACTION_CODE!=0}
                             onClick={(e) => {
                                 handleClick(payment.SATIM_ORDER_ID);
                             }}
+                            style={{opacity:`${payment.ACTION_CODE!=0 ? 0.6 : 1}`}}
                         >
                             <DownloadSimpleIcon size={20} style={{ color: theme.token.colorBlack }} />
                             {t("downloadReceipt")}

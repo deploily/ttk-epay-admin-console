@@ -57,8 +57,7 @@ export const updateInvoice = createAsyncThunk(
 export const postInvoice = createAsyncThunk(
   "invoice/postInvoice",
   async (data: any, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState
-    const client = new TtkEpay(state.registration.registration?.url, state.registration.registration?.secretKey);
+    const client = clientRegistration(thunkAPI)
     try {
       const createdInvoice = await client.createInvoice(data);
       return createdInvoice;
@@ -71,11 +70,10 @@ export const postInvoice = createAsyncThunk(
 export const generateLink = createAsyncThunk(
   "invoice/generateLink",
   async (data: any, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState
-    const client = new TtkEpay(state.registration.registration?.url);
+    const client = clientRegistration(thunkAPI)
 
     try {
-      const link = await client.generateLink(data.orderId, data.clientCode);
+      const link = await client.generateLink(data.invoiceNumber, data.clientCode);
       return link
 
     } catch (error: any) {

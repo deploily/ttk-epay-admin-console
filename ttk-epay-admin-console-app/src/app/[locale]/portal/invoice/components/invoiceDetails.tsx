@@ -60,7 +60,7 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
                 <Col span={24} style={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
                   
                     
-                        <GenerateLinkPopover orderId={invoice?.ORDER_ID} clientCode={invoice?.CLIENT_CODE} />
+                        <GenerateLinkPopover invoiceNumber={invoice?.INVOICE_NUMBER} clientCode={invoice?.CLIENT_CODE} />
                     
                 </Col>
             </Row>

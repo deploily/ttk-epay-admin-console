@@ -18,7 +18,7 @@ import { theme } from '@/styles/theme';
 import { CustomButton } from '@/styles/components/buttonStyle';
 import { useScopedI18n } from '../../../../../../locales/client';
 
-export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: any, clientCode: any }) {
+export default function GenerateLinkPopover({ invoiceNumber, clientCode }: { invoiceNumber: number|any, clientCode: number|any }) {
     const [open, setOpen] = useState(false);
     const [showSocials, setShowSocials] = useState(false);
     const t = useScopedI18n('invoice');
@@ -32,14 +32,17 @@ export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: 
     };
 
     useEffect(() => {
-        dispatch(generateLink({ orderId: orderId, clientCode: clientCode }))
+        dispatch(generateLink({ invoiceNumber: invoiceNumber, clientCode: clientCode }))
 
-    }, [orderId, clientCode]);
+    }, [invoiceNumber, clientCode]);
 
     const handleOpenChange = async (newOpen: boolean) => {
         if (generatedLink) {
             setOpen(newOpen);
             if (!newOpen) setShowSocials(false);
+        }
+        else {
+            message.error(t('generateLinkErrorMsg'));
         }
     };
 
@@ -94,9 +97,7 @@ export default function GenerateLinkPopover({ orderId, clientCode }: { orderId: 
                 onOpenChange={handleOpenChange}
                 align={{ offset: [-10, 0] }}
             >
-                <CustomButton
-                   
-                >
+                <CustomButton>
                     <LinkSimpleIcon size={20} style={{ color: theme.token.colorBlack, marginRight: 8 }} />
                     {t("generateLink")}
                 </CustomButton>

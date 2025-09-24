@@ -26,7 +26,7 @@ export default function GetPayments() {
     const router = useLocaleRouter();
     const { registration } = useRegistration()
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(10);
     const { RangePicker } = DatePicker;
     const [startDate, setStartDate] = useState(dayjs().subtract(30, 'day'));
     const [endDate, setEndDate] = useState(dayjs());
@@ -144,7 +144,7 @@ export default function GetPayments() {
                     />
                     { //TODO download list 
                     }
-                    <CustomButton>
+                    <CustomButton disabled style={{ opacity: 0.6 }} >
                         <DownloadSimpleIcon size={20} style={{ color: theme.token.colorBlack }} />
                         {t("downloadList")}
                     </CustomButton>
@@ -160,7 +160,7 @@ export default function GetPayments() {
                         size="middle"
                         className="custom-table"
                         style={{ marginTop: 40, borderRadius: 0, paddingInline: 20 , }}
-                        scroll={{ y: 'calc(100vh - 300px)' }}
+                        scroll={{ y: 'calc(100vh - 350px)' }}
                         rowKey={(record:any) => record.ID || `row-${Math.random()}`}
                         onRow={(record:any) => ({
                             onClick: () => router.push(`/portal/payment?id=${record.ID}`),
@@ -171,7 +171,7 @@ export default function GetPayments() {
                             current: page,
                             pageSize: pageSize,
                             showSizeChanger: true,
-                            pageSizeOptions: [5, 10, 20, 100],
+                            pageSizeOptions: [10, 20, 50, 100],
                             onChange: (newPage: any, newPageSize: any) => {
                                 setPage(newPage)
                                 setPageSize(newPageSize);

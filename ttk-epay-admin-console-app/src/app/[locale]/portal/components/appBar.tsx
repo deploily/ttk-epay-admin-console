@@ -1,8 +1,7 @@
 "use client";
 import * as React from "react";
-import Image from "next/image";
 import { useState } from "react";
-import { Col, Drawer, Row } from "antd";
+import { Col, Drawer, Image, Row } from "antd";
 import { Header } from "antd/es/layout/layout";
 import LocaleSwitcher from "@/app/[locale]/components/localeSwitcher";
 import { GearIcon, ListIcon } from "@phosphor-icons/react";
@@ -10,12 +9,14 @@ import { MainSideBarMobile } from "./sideBar";
 import Link from "next/link";
 import EditRegistration from "./editRegistration";
 import { theme } from "@/styles/theme";
+import { useLocaleRouter } from "@/lib/navigation";
 
 
 
 
 export function AppAppBarDesktop() {
 
+  const router = useLocaleRouter();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -28,7 +29,7 @@ export function AppAppBarDesktop() {
     <>
       <Header
         style={{
-          backgroundColor:theme.token.whisperBlue,
+          backgroundColor: theme.token.whisperBlue,
           backgroundImage: "none",
           display: "flex",
           justifyContent: "center",
@@ -39,19 +40,26 @@ export function AppAppBarDesktop() {
       >
         <Row align="middle" justify="space-between" style={{ width: "100%" }}>
           <Col style={{ flexGrow: 1 }}>
-            <Link href="/portal"
-             style={{ display: "flex", alignItems: "center", color:"#b42e12", fontSize: "20px", fontWeight: "bold" }}>
+            <Link href="" onClick={(e) => {
+              e.preventDefault();
+              router.push("/");
+            }}
+              style={{ display: "flex", alignItems: "center", color: "#b42e12", fontSize: "20px", fontWeight: "bold" }}>
               <Image
                 src="/images/ttk-epay-logo.png"
                 width={50}
                 height={50}
                 alt="logo-deploily"
+                preview={false}
                 style={{
                   marginRight: "5px",
                   cursor: "pointer",
+                  maxWidth: "100%",
+                  height: "auto"
                 }}
+                
               />
-              TTK Epay
+              TTK ePay
             </Link>
           </Col>
           <Row
@@ -82,6 +90,7 @@ export function AppAppBarDesktop() {
 
 export function AppAppBarMobile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useLocaleRouter();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -113,15 +122,21 @@ export function AppAppBarMobile() {
       >
         <Row align="middle" justify="space-between" style={{ width: "100%" }}>
           <Col style={{ flexGrow: 1 }}>
-            <Link href="/portal">
+            <Link href="" onClick={(e) => {
+              e.preventDefault();
+              router.push("/");
+            }}>
               <Image
                 src="/images/ttk-epay-logo.png"
-                width={180}
-                height={44}
+                width={50}
+                height={50}
                 alt="logo-deploily"
+                preview={false}
                 style={{
                   marginRight: "20px",
                   cursor: "pointer",
+                  maxWidth: "100%",
+                  height: "auto"
                 }}
               />
             </Link>

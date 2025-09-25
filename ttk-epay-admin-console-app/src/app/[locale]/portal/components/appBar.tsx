@@ -10,6 +10,8 @@ import Link from "next/link";
 import EditRegistration from "./editRegistration";
 import { theme } from "@/styles/theme";
 import { useLocaleRouter } from "@/lib/navigation";
+import { useRouter } from "next/router";
+import getConfig from "next/config";
 
 
 
@@ -24,7 +26,8 @@ export function AppAppBarDesktop() {
     setIsModalOpen(true);
   };
 
-
+  const { publicRuntimeConfig } = getConfig();
+  const basePath = publicRuntimeConfig?.basePath || "";  
   return (
     <>
       <Header
@@ -46,7 +49,7 @@ export function AppAppBarDesktop() {
             }}
               style={{ display: "flex", alignItems: "center", color: "#b42e12", fontSize: "20px", fontWeight: "bold" }}>
               <Image
-                src="/images/ttk-epay-logo.png"
+                src={`${basePath}/images/ttk-epay-logo.png`}
                 width={50}
                 height={50}
                 alt="logo-deploily"
@@ -106,6 +109,9 @@ export function AppAppBarMobile() {
     setOpen(false);
   };
 
+  const { basePath } = useRouter();
+
+
   return (
     <>
       <Header
@@ -127,7 +133,7 @@ export function AppAppBarMobile() {
               router.push("/");
             }}>
               <Image
-                src="/images/ttk-epay-logo.png"
+                src={`${basePath}/images/ttk-epay-logo.png`}
                 width={50}
                 height={50}
                 alt="logo-deploily"

@@ -7,13 +7,16 @@ import { useScopedI18n } from '../../../../locales/client';
 import LocaleSwitcher from './localeSwitcher';
 import { useAppDispatch } from '@/lib/hook';
 import { getRegistration, setRegistration } from '@/lib/features/registration/registrationSlice';
-import {  useSearchParams } from 'next/navigation';
+import {  useRouter, useSearchParams } from 'next/navigation';
 import { useRegistration } from '@/lib/features/registration/registrationSelectors';
 import { theme } from '@/styles/theme';
 import { useLocaleRouter } from '@/lib/navigation';
+import getConfig from 'next/config';
 
 
 export default function RegistrationComponent() {
+    const { publicRuntimeConfig } = getConfig();
+    const basePath = publicRuntimeConfig?.basePath || "";
     const t = useScopedI18n('registration')
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
@@ -57,7 +60,7 @@ export default function RegistrationComponent() {
                 <Col md={12} xs={24}>
                     <Col span={24} style={{ display: "flex", justifyContent: "center", marginTop: "10%", marginBottom: "15%" }}>
                         <Image
-                            src="/images/ttk-epay-logo.png"
+                            src={`${basePath}/images/ttk-epay-logo.png`}
                             width={200}
                             height={200}
                             alt="logo-deploily"
@@ -139,7 +142,7 @@ export default function RegistrationComponent() {
                 <Col md={12} xs={24} style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingInline: 20 }} >
                     
                         <Image
-                            src="/images/capture-url.png"
+                            src={`${basePath}/images/capture-url.png`}
                             width={644}
                             height={550}
                             style={{

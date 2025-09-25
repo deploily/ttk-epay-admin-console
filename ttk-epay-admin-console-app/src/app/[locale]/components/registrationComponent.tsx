@@ -11,12 +11,12 @@ import {  useRouter, useSearchParams } from 'next/navigation';
 import { useRegistration } from '@/lib/features/registration/registrationSelectors';
 import { theme } from '@/styles/theme';
 import { useLocaleRouter } from '@/lib/navigation';
-import getConfig from 'next/config';
+import nextConfig from "@/../next.config.mjs";
 
 
 export default function RegistrationComponent() {
-    const { publicRuntimeConfig } = getConfig();
-    const basePath = publicRuntimeConfig?.basePath || "";
+
+    const basePath = nextConfig.basePath || "";
     const t = useScopedI18n('registration')
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();

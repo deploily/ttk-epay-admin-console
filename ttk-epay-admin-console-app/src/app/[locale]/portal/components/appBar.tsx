@@ -11,12 +11,13 @@ import EditRegistration from "./editRegistration";
 import { theme } from "@/styles/theme";
 import { useLocaleRouter } from "@/lib/navigation";
 import { useRouter } from "next/router";
-import getConfig from "next/config";
+import nextConfig from "@/../next.config.mjs";
 
 
 
 
 export function AppAppBarDesktop() {
+  const basePath = nextConfig.basePath || "";
 
   const router = useLocaleRouter();
 
@@ -25,9 +26,6 @@ export function AppAppBarDesktop() {
   const showModal = () => {
     setIsModalOpen(true);
   };
-
-  const { publicRuntimeConfig } = getConfig();
-  const basePath = publicRuntimeConfig?.basePath || "";  
   return (
     <>
       <Header

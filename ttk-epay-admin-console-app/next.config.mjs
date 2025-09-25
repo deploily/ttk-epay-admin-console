@@ -8,9 +8,7 @@ const nextConfig = {
     images: {
         unoptimized: true, // GitHub Pages doesn't support Next.js Image Optimization
     },
-    publicRuntimeConfig: {
-        basePath: "/ttk-epay-admin-console",
-    },
+    
 };
 
 export default nextConfig;

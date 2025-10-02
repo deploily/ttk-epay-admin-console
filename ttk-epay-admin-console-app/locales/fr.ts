@@ -27,6 +27,7 @@ export default {
     'invoice.updateError': 'Erreur de mise à jour',
     "invoice.orderId": "ID de commande",
     "invoice.orderName": "Nom de la commande",
+    "invoice.invoiceNumber": "Numéro de facture",
     "invoice.netAmount": "Montant net",
     "invoice.invoiceTva": "Facture TVA",
     "invoice.amountTva": "Montant TVA",
@@ -46,7 +47,8 @@ export default {
     "invoice.addInvoiceSuccessMsg": "Facture enregistrée avec succès.",
     "invoice.updateInvoiceSuccessMsg": "Facture mise à jour avec succès.",
     "invoice.generateLinkErrorMsg": "Échec de la génération du lien. Veuillez réessayer.",
-
+    "invoice.requiredMessage": 'Ce champ est obligatoire.',
+    
     "payment.payment": "Paiement",
     "payment.downloadList": "Télécharger la liste",
     "payment.action Code": "Code d'action",

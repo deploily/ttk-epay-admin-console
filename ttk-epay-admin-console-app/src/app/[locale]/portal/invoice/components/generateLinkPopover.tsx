@@ -18,7 +18,7 @@ import { theme } from '@/styles/theme';
 import { CustomButton } from '@/styles/components/buttonStyle';
 import { useScopedI18n } from '../../../../../../locales/client';
 
-export default function GenerateLinkPopover({ invoiceNumber, clientCode }: { invoiceNumber: number|any, clientCode: number|any }) {
+export default function GenerateLinkPopover({ invoiceNumber, clientCode }: { invoiceNumber: number | any, clientCode: number | any }) {
     const [open, setOpen] = useState(false);
     const [showSocials, setShowSocials] = useState(false);
     const t = useScopedI18n('invoice');
@@ -32,6 +32,8 @@ export default function GenerateLinkPopover({ invoiceNumber, clientCode }: { inv
     };
 
     useEffect(() => {
+        console.log(invoiceNumber, clientCode);
+
         dispatch(generateLink({ invoiceNumber: invoiceNumber, clientCode: clientCode }))
 
     }, [invoiceNumber, clientCode]);
@@ -78,7 +80,7 @@ export default function GenerateLinkPopover({ invoiceNumber, clientCode }: { inv
             />
 
             {showSocials && (
-                <Space wrap style={{ display: "flex", justifyContent: "end" }}>  
+                <Space wrap style={{ display: "flex", justifyContent: "end" }}>
                     <Button href={links.whatsapp} target="_blank" rel="noopener noreferrer" icon={<WhatsappLogoIcon color={theme.token.colorBlack} size={24} />} />
                     <Button href={links.messenger} target="_blank" rel="noopener noreferrer" icon={<MessengerLogoIcon color={theme.token.colorBlack} size={24} />} />
                     <Button href={links.linkedin} target="_blank" rel="noopener noreferrer" icon={<LinkedinLogoIcon color={theme.token.colorBlack} size={24} />} />

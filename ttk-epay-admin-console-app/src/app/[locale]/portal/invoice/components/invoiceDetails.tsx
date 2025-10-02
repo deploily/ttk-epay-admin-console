@@ -2,7 +2,7 @@
 import { useAppDispatch } from "@/lib/hook";
 import { CustomInvoiceInput } from "@/styles/components/inputStyle";
 import { InvoiceIcon, LinkSimpleIcon } from "@phosphor-icons/react";
-import { Button, Checkbox, Col, Form, message, notification, Popover, Radio, Result, Row, Skeleton } from "antd";
+import { Button, Checkbox, Col, Divider, Form, message, notification, Popover, Radio, Result, Row, Skeleton } from "antd";
 import Title from "antd/es/typography/Title";
 import { useEffect } from "react";
 import { getInvoiceById, updateInvoice } from "@/lib/features/invoice/invoiceThunks";
@@ -24,14 +24,14 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
 
 
     useEffect(() => {
-        dispatch(getInvoiceById(invoicerId));       
-        
+        dispatch(getInvoiceById(invoicerId));
+
     }, [registration, invoicerId]);
 
     const handleUpdate = async (formValues: any) => {
         try {
             await dispatch(updateInvoice({ ID: invoice?.ID, ...formValues })).unwrap();
-
+            dispatch(getInvoiceById(invoicerId));
             api.success({
                 message: t('success'),
                 description: t('updateInvoiceSuccessMsg'),
@@ -45,6 +45,7 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
         }
     };
 
+    console.log(invoice);
 
     return (
         <>
@@ -58,10 +59,10 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
                     </Title>
                 </Col>
                 <Col span={24} style={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
-                  
-                    
-                        <GenerateLinkPopover invoiceNumber={invoice?.INVOICE_NUMBER} clientCode={invoice?.CLIENT_CODE} />
-                    
+
+
+                    <GenerateLinkPopover invoiceNumber={invoice?.INVOICE_NUMBER} clientCode={invoice?.CLIENT_CODE} />
+
                 </Col>
             </Row>
             <Row>
@@ -87,8 +88,8 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
                         colon={false}
                         style={{ padding: 20 }}
                         initialValues={{
-                            ORDER_ID: invoice.ORDER_ID,
                             ORDER_NAME: invoice.ORDER_NAME,
+                            INVOICE_NUMBER: invoice.INVOICE_NUMBER,
                             NET_AMOUNT: invoice.NET_AMOUNT,
                             INVOICE_TVA: invoice.INVOICE_TVA,
                             AMOUNT_TVA: invoice.AMOUNT_TVA,
@@ -101,24 +102,39 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
                             CLIENT_IDF: invoice.CLIENT_IDF,
                             IS_PAID: invoice.IS_PAID,
                             PRODUCT_NAME: invoice.PRODUCT_NAME,
-
                         }}
                     >
                         <Row gutter={[16, 16]}>
                             <Col md={12} xs={24}>
-                                <Form.Item label={t('orderId')} name="ORDER_ID">
+                                <Form.Item label={t('invoiceNumber')} name="INVOICE_NUMBER" required rules={[{ required: true, message: t('requiredMessage') }]}>
                                     <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24}>
-                                <Form.Item label={t('ORDER_NAME')} name="ORDER_NAME">
+                                <Form.Item label={t('netAmount')} name="NET_AMOUNT" required rules={[{ required: true, message: t('requiredMessage') }]}>
                                     <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                         </Row>
-                        <Form.Item label={t('netAmount')} name="NET_AMOUNT">
+
+                        <Row gutter={[16, 16]}>
+                            <Col md={12} xs={24}>
+                                <Form.Item label={t('clientCode')} name="CLIENT_CODE" required rules={[{ required: true, message: t('requiredMessage') }]}>
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
+                                </Form.Item>
+                            </Col>
+                            <Col md={12} xs={24}>
+                                <Form.Item label={t('clientName')} name="CLIENT_NAME" required rules={[{ required: true, message: t('requiredMessage') }]}>
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
+                                </Form.Item>
+                            </Col>
+
+                        </Row>
+                        <Form.Item label={t('clientAdress')} name="CLIENT_ADDRESS" required rules={[{ required: true, message: t('requiredMessage') }]}>
                             <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                         </Form.Item>
+
+                        <Divider></Divider>
                         <Row gutter={[16, 16]}>
                             <Col md={8} xs={24}>
                                 <Form.Item label={t('invoiceTva')} name="INVOICE_TVA">
@@ -136,27 +152,23 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
                                 </Form.Item>
                             </Col>
                         </Row>
-                        <Form.Item label={t('clientCode')} name="CLIENT_CODE">
-                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                        </Form.Item>
+                        <Col md={12} xs={24}>
+                            <Form.Item label={t('orderName')} name="ORDER_NAME">
+                                <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
+                            </Form.Item>
+                        </Col>
                         <Row gutter={[16, 16]}>
-                            <Col md={16} xs={24}>
-                                <Form.Item label={t('clientName')} name="CLIENT_NAME">
+                            <Col md={12} xs={24}>
+                                <Form.Item label={t('clientMail')} name="CLIENT_MAIL">
                                     <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                                </Form.Item>
-                            </Col>
-                            <Col md={8} xs={24}>
+                                </Form.Item>                        </Col>
+
+                            <Col md={12} xs={24}>
                                 <Form.Item label={t('clientNrc')} name="CLIENT_NRC">
                                     <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                                 </Form.Item>
                             </Col>
                         </Row>
-                        <Form.Item label={t('clientAdress')} name="CLIENT_ADDRESS">
-                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                        </Form.Item>
-                        <Form.Item label={t('clientMail')} name="CLIENT_MAIL">
-                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                        </Form.Item>
                         <Row gutter={[16, 16]}>
                             <Col md={20} xs={24}>
                                 <Form.Item label={t('ClientIdf')} name="CLIENT_IDF">

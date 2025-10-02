@@ -1,13 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    basePath: "/ttk-epay-admin-console",
-    output: "export",
-    trailingSlash: true,
     reactStrictMode: true,
-    assetPrefix: "/ttk-epay-admin-console/",
+    trailingSlash: true,
     images: {
-        unoptimized: true, // GitHub Pages doesn't support Next.js Image Optimization
+        unoptimized: true, // required for GitHub Pages
     },
+    // Only apply these in production (GitHub Pages)
+    ...(process.env.NODE_ENV === "production"
+        ? {
+            basePath: "/ttk-epay-admin-console",
+            assetPrefix: "/ttk-epay-admin-console/",
+            output: "export",
+        }
+        : {}),
     
 };
 

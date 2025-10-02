@@ -12,7 +12,7 @@ import { StoreProvider } from "../storeProvider";
 const SUPPORTED_LOCALES = ["en", "fr"];
 
 export const metadata: Metadata = {
-  title: "Deploily E-Pay",
+  title: "TTK E-Pay",
   description: "",
 };
 

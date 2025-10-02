@@ -72,7 +72,7 @@ export default function GetInvoices() {
         }));
     return (
         <>
-            <Row gutter={16} style={{ paddingTop: 10, paddingInline: 20 }}>
+            <Row gutter={16} style={{ paddingTop: 10, paddingInline: 0, margin: "0px" }}>
                 <Col span={14} style={{ display: "flex", alignItems: "center" }}>
                     <InvoiceIcon size={32} style={{ color: theme.token.blackOverlay }} />
                     <Title level={3} style={{ fontWeight: 700, color: theme.token.blackOverlay, marginBottom: 0, marginLeft: 2 }}>

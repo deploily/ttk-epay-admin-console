@@ -10,7 +10,6 @@ import Link from "next/link";
 import EditRegistration from "./editRegistration";
 import { theme } from "@/styles/theme";
 import { useLocaleRouter } from "@/lib/navigation";
-import { useRouter } from "next/router";
 import nextConfig from "@/../next.config.mjs";
 
 
@@ -107,8 +106,7 @@ export function AppAppBarMobile() {
     setOpen(false);
   };
 
-  const { basePath } = useRouter();
-
+  const basePath = nextConfig.basePath || "";
 
   return (
     <>

@@ -88,18 +88,11 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
                         colon={false}
                         style={{ padding: 20 }}
                         initialValues={{
-                            ORDER_NAME: invoice.ORDER_NAME,
                             INVOICE_NUMBER: invoice.INVOICE_NUMBER,
                             NET_AMOUNT: invoice.NET_AMOUNT,
-                            INVOICE_TVA: invoice.INVOICE_TVA,
-                            AMOUNT_TVA: invoice.AMOUNT_TVA,
-                            AMOUNT_TTC: invoice.AMOUNT_TTC,
                             CLIENT_CODE: invoice.CLIENT_CODE,
                             CLIENT_NAME: invoice.CLIENT_NAME,
-                            CLIENT_NRC: invoice.CLIENT_NRC,
                             CLIENT_ADDRESS: invoice.CLIENT_ADDRESS,
-                            CLIENT_MAIL: invoice.CLIENT_MAIL,
-                            CLIENT_IDF: invoice.CLIENT_IDF,
                             IS_PAID: invoice.IS_PAID,
                             PRODUCT_NAME: invoice.PRODUCT_NAME,
                         }}
@@ -133,47 +126,11 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
                         <Form.Item label={t('clientAdress')} name="CLIENT_ADDRESS" required rules={[{ required: true, message: t('requiredMessage') }]}>
                             <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
                         </Form.Item>
-
-                        <Divider></Divider>
-                        <Row gutter={[16, 16]}>
-                            <Col md={8} xs={24}>
-                                <Form.Item label={t('invoiceTva')} name="INVOICE_TVA">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                                </Form.Item>
-                            </Col>
-                            <Col md={8} xs={24}>
-                                <Form.Item label={t('amountTva')} name="AMOUNT_TVA">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                                </Form.Item>
-                            </Col>
-                            <Col md={8} xs={24}>
-                                <Form.Item label={t('amountTtc')} name="AMOUNT_TTC">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Col md={12} xs={24}>
-                            <Form.Item label={t('orderName')} name="ORDER_NAME">
-                                <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                            </Form.Item>
-                        </Col>
-                        <Row gutter={[16, 16]}>
-                            <Col md={12} xs={24}>
-                                <Form.Item label={t('clientMail')} name="CLIENT_MAIL">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                                </Form.Item>                        </Col>
-
-                            <Col md={12} xs={24}>
-                                <Form.Item label={t('clientNrc')} name="CLIENT_NRC">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                                </Form.Item>
-                            </Col>
-                        </Row>
                         <Row gutter={[16, 16]}>
                             <Col md={20} xs={24}>
-                                <Form.Item label={t('ClientIdf')} name="CLIENT_IDF">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                                </Form.Item>
+                        <Form.Item label={t('productName')} name="PRODUCT_NAME">
+                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
+                        </Form.Item>
                             </Col>
                             <Col md={4} xs={24}>
                                 <Form.Item name="IS_PAID" valuePropName="checked" >
@@ -182,9 +139,7 @@ export default function InvoiceDetails({ invoicerId }: { invoicerId: any }) {
                             </Col>
                         </Row>
 
-                        <Form.Item label={t('productName')} name="PRODUCT_NAME">
-                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} />
-                        </Form.Item>
+                        
 
                         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: 'end', marginTop: 20 }}>
                             <CustomPrimaryButton htmlType="submit">

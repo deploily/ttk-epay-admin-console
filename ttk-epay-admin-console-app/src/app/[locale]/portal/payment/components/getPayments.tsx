@@ -1,13 +1,12 @@
 'use client'
-import { Col, DatePicker, notification, Result, Row, Skeleton, Table } from "antd";
+import { Col, DatePicker, notification, Result, Row, Skeleton } from "antd";
 import Title from "antd/es/typography/Title";
 import { useI18n, useScopedI18n } from "../../../../../../locales/client";
-import { DownloadSimpleIcon, FilePdfIcon, InvoiceIcon, Translate } from "@phosphor-icons/react";
+import { DownloadSimpleIcon, FilePdfIcon, InvoiceIcon } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
 import { usePayment } from "@/lib/features/payment/paymentSelector";
 import { fetchPayment, savePdfReceipt } from "@/lib/features/payment/paymentThunks";
-import { Payment } from "@/lib/features/payment/paymentInterface";
 import dayjs from "dayjs";
 import { ColumnsType } from "antd/es/table";
 import { useRegistration } from "@/lib/features/registration/registrationSelectors";
@@ -73,7 +72,7 @@ export default function GetPayments() {
 
 
     const keysToColumn = () => {
-        const list = ["ID", "ACTION_CODE", "AMOUNT", "ORDER_NUMBER", "SATIM_ORDER_ID", "DATE",]
+        const list = ["ID", "ACTION_CODE", "AMOUNT", "ORDER_NUMBER", "CLIENT_ID", "DATE",]
 
         let columns: ColumnsType<any> = list.map((element: any, index) => {
             if (element === "DATE")

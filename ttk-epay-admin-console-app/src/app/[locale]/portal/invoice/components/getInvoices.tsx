@@ -37,7 +37,7 @@ export default function GetInvoices() {
     }
 
     const keysToColumn = () => {
-        const list = ["ID", "ORDER_ID", "ORDER_NAME", "NET_AMOUNT", "CLIENT_CODE", "CLIENT_NAME", "IS_PAID"]
+        const list = ["ID","NET_AMOUNT", "CLIENT_CODE", "CLIENT_NAME", "IS_PAID"]
 
         let columns = list.map((element: any, index) => {
             if (element === "IS_PAID")

@@ -53,6 +53,7 @@ export default {
   "payment.AMOUNT": "Amount",
   "payment.orderNumber": "Order number",
   "payment.ORDER_NUMBER": "Order number",
+  "payment.CLIENT_ID": "Client ID",
   "payment.date": "Date",
   "payment.DATE": "Date",
   "payment.downloadReceipt": "Download receipt",

@@ -72,7 +72,7 @@ export default function GetPayments() {
 
 
     const keysToColumn = () => {
-        const list = ["ID", "ACTION_CODE", "AMOUNT", "ORDER_NUMBER", "CLIENT_ID", "DATE",]
+        const list = ["ID", "ACTION_CODE", "AMOUNT", "ORDER_NUMBER", "CLIENT_CODE", "DATE",]
 
         let columns: ColumnsType<any> = list.map((element: any, index) => {
             if (element === "DATE")

@@ -12,6 +12,7 @@ export interface Payment {
   ACTION_CODE: number;
   AMOUNT: number;
   AUTH_CODE: number;
+  CLIENT_CODE: number | null;
   CURRENCY: string;
   ERROR_CODE: string;
   ERROR_MESSAGE: string;
@@ -31,4 +32,5 @@ export interface Payment {
   UDF5: string | null;
   REGISTER_ID: string | null;
   REGISTER: string | null;
+
 }

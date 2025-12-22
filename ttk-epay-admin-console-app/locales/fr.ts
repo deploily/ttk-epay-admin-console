@@ -63,7 +63,7 @@ export default {
     "payment.actionCodeDescreption": "Description du code d'action",
     "payment.amount": "Montant",
     "payment.authCode": "Code d'authentification",
-    "payment.CLIENT_ID": "Id de client",
+    "payment.CLIENT_CODE": "Code de client",
     "payment.currency": "Devise",
     "payment.errorMessage": "Message d'erreur",
     "payment.cardHoldeName": "Nom du titulaire de la carte",

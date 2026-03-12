@@ -13,10 +13,7 @@ Admin console for TTK Epay module
 git clone git@github.com:deploily/ttk-epay-admin-console.git
 cd ttk-epay-admin-console
 ```
-After first clone 
-```bash
-git submodule update --init --recursive
-```
+
 
 ## Project setup using VSCode
 

@@ -44,15 +44,17 @@ export default {
   "invoice.addInvoiceSuccessMsg": "Invoice saved successfully.",
   "invoice.updateInvoiceSuccessMsg": "Invoice updated successfully.",
   "invoice.generateLinkErrorMsg": "Failed to generate link. Please try again.",
-  "invoice.requiredMessage":'This field is required.',
+  "invoice.requiredMessage": "This field is required.",
   "payment.payment": "Payment",
   "payment.downloadList": "Download list",
+  "payment.errorCode": "Error code",
   "payment.actionCode": "Action code",
   "payment.ACTION_CODE": "Action code",
   "payment.Amount": "Amount",
   "payment.AMOUNT": "Amount",
   "payment.orderNumber": "Order number",
-  "payment.ORDER_NUMBER": "Order number",
+  "payment.ORDER_NUMBER": "Receipt",
+  "payment.INVOICE_NUMBER": "Invoice",
   "payment.CLIENT_CODE": "Client code",
   "payment.date": "Date",
   "payment.DATE": "Date",
@@ -70,7 +72,7 @@ export default {
   "payment.success": "Success",
   "payment.savePdfReceiptSuccessMsg": "PDF generated successfully.",
 
-  
+
 
   "claim.claim": "Claim",
   "claim.id": "id",

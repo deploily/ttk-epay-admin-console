@@ -59,11 +59,11 @@ export default function PaymentDetails({ paymentId }: { paymentId: string }) {
 
                     {!isLoadingPayment && payment &&
                         <CustomButton
-                            disabled={payment.ACTION_CODE!=0}
+                            disabled={payment.ACTION_CODE != 0}
                             onClick={(e) => {
                                 handleClick(payment.SATIM_ORDER_ID);
                             }}
-                            style={{opacity:`${payment.ACTION_CODE!=0 ? 0.6 : 1}`}}
+                            style={{ opacity: `${payment.ACTION_CODE != 0 ? 0.6 : 1}` }}
                         >
                             <DownloadSimpleIcon size={20} style={{ color: theme.token.colorBlack }} />
                             {t("downloadReceipt")}
@@ -98,76 +98,97 @@ export default function PaymentDetails({ paymentId }: { paymentId: string }) {
                             actionCode: payment.ACTION_CODE,
                             amount: payment.AMOUNT,
                             authCode: payment.AUTH_CODE,
-                            currency: payment.ERROR_CODE,
+                            errorCode: payment.ERROR_CODE,
                             errorMessage: payment.ERROR_MESSAGE,
                             cardHoldeName: payment.CARD_HOLDER_NAME,
                             expiration: payment.EXPIRATION,
                             orderNumber: payment.ORDER_NUMBER,
                             satimOrderId: payment.SATIM_ORDER_ID,
                             responseCodeDescreption: payment.RESPONSE_CODE_DESCRIPTION,
-
+                            invoiceNumber: payment.INVOICE_NUMBER,
+                            clientCode: payment.CLIENT_CODE,
                         }}
                     >
 
-                        <Form.Item label={t('date')} name="date">
-                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
-                        </Form.Item>
-
-                        <Form.Item label={t('actionCodeDescreption')} name="actionCodeDescreption">
-                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
-                        </Form.Item>
-
-                        <Form.Item label={t('actionCode')} name="actionCode">
-                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
-                        </Form.Item>
                         <Row gutter={[16, 16]}>
                             <Col md={8} xs={24}>
+                                <Form.Item label={t('ORDER_NUMBER')} name="orderNumber">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                            <Col md={8} xs={24}>
+                                <Form.Item label={t('INVOICE_NUMBER')} name="invoiceNumber">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                            <Col md={8} xs={24}>
+                                <Form.Item label={t('CLIENT_CODE')} name="clientCode">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={[16, 16]}>
+                            <Col md={12} xs={24}>
+                                <Form.Item label={t('date')} name="date">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                            <Col md={12} xs={24}>
                                 <Form.Item label={t('amount')} name="amount">
                                     <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
                                 </Form.Item>
                             </Col>
-                            <Col md={8} xs={24}>
-                                <Form.Item label={t('authCode')} name="authCode">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
-                                </Form.Item>
-                            </Col>
-                            <Col md={8} xs={24}>
-                                <Form.Item label={t('currency')} name="currency">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
-                                </Form.Item>
-                            </Col>
-
                         </Row>
 
-
+                        <Form.Item label={t('actionCodeDescreption')} name="actionCodeDescreption">
+                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                        </Form.Item>
                         <Form.Item label={t('errorMessage')} name="errorMessage">
-                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
-                        </Form.Item>
-                        <Form.Item label={t('cardHoldeName')} name="cardHoldeName">
-                            <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
-                        </Form.Item>
-                        <Row gutter={[16, 16]}>
-                            <Col md={12} xs={24}>
-                                <Form.Item label={t('expiration')} name="expiration">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
-                                </Form.Item>
-                            </Col>
-                            <Col md={12} xs={24}>
-                                <Form.Item label={t('orderNumber')} name="orderNumber">
-                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-
-                        <Form.Item label={t('satimOrderId')} name="satimOrderId">
                             <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
                         </Form.Item>
                         <Form.Item label={t('responseCodeDescreption')} name="responseCodeDescreption">
                             <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
                         </Form.Item>
 
-                    </Form>
+                        <Row gutter={[16, 16]}>
+                            <Col md={12} xs={24}>
+                                <Form.Item label={t('satimOrderId')} name="satimOrderId">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                            <Col md={12} xs={24}>
+                                <Form.Item label={t('actionCode')} name="actionCode">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                        </Row>
 
+                        <Row gutter={[16, 16]}>
+                            <Col md={12} xs={24}>
+                                <Form.Item label={t('authCode')} name="authCode">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                            <Col md={12} xs={24}>
+                                <Form.Item label={t('errorCode')} name="errorCode">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+
+                        <Row gutter={[16, 16]}>
+                            <Col md={16} xs={24}>
+                                <Form.Item label={t('cardHoldeName')} name="cardHoldeName">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                            <Col md={8} xs={24}>
+                                <Form.Item label={t('expiration')} name="expiration">
+                                    <CustomInvoiceInput style={{ color: theme.token.colorBlack }} readOnly />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                    </Form>
                 </>
             }
 

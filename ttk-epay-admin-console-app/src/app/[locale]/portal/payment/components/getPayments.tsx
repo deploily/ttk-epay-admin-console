@@ -72,7 +72,7 @@ export default function GetPayments() {
 
 
     const keysToColumn = () => {
-        const list = ["ID", "ACTION_CODE", "AMOUNT", "ORDER_NUMBER", "CLIENT_CODE", "DATE",]
+        const list = ["ID", "ORDER_NUMBER", "INVOICE_NUMBER", "CLIENT_CODE", "AMOUNT", "DATE",]
 
         let columns: ColumnsType<any> = list.map((element: any, index) => {
             if (element === "DATE")
@@ -83,7 +83,6 @@ export default function GetPayments() {
                     render: (date: Date) =>
                         dayjs(date).format("DD-MM-YYYY HH:mm"),
                 };
-
             else
                 return {
                     title: t(element),
@@ -101,9 +100,6 @@ export default function GetPayments() {
                     onClick={(e) => {
                         e.stopPropagation();
                         handleClick(element.SATIM_ORDER_ID);
-
-
-
                     }} >
                     <FilePdfIcon size={24} color={theme.token.colorBlack} style={{ cursor: 'pointer' }} />
                 </div>,
